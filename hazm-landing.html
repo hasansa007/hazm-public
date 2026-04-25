@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="حزم — تطبيق لياقة وتغذية مبني على نموذج أخصائية تغذية حقيقية. يحترم إصابتك، يفهم صيامك، ويعطيك أرقاماً صادقة.">
+<title>حزم · Hazm</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ivory: #FAF7F2;
+    --ivory-deep: #F0EBE2;
+    --ink: #0E0E0E;
+    --ink-soft: #2A2A2A;
+    --gray-line: #D4CFC5;
+    --gray-mute: #8A8579;
+    --crimson: #8B1F1F;
+    --crimson-deep: #5E1414;
+    --gold: #B8954A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body[dir="ltr"] {
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+
+  /* === NAVIGATION === */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 2rem;
+    background: rgba(250, 247, 242, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  body[dir="ltr"] .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .nav-controls {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .lang-toggle {
+    background: none;
+    border: 1px solid var(--ink);
+    padding: 0.4rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--ink);
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+
+  .lang-toggle:hover {
+    background: var(--ink);
+    color: var(--ivory);
+  }
+
+  .nav-cta {
+    background: var(--ink);
+    color: var(--ivory);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  body[dir="ltr"] .nav-cta {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .nav-cta:hover {
+    background: var(--crimson);
+  }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    padding: 9rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    position: relative;
+    align-items: center;
+  }
+
+  .hero-text {
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--crimson);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    background: var(--crimson);
+  }
+
+  .hero h1 {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  body[dir="ltr"] .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--crimson);
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+  }
+
+  body[dir="rtl"] .hero h1 em {
+    font-family: 'Tajawal', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+  }
+
+  .hero-sub {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+    max-width: 36rem;
+    font-weight: 300;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--ivory);
+    border: none;
+    padding: 1.1rem 2.25rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--crimson);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover::before {
+    transform: translateY(0);
+  }
+
+  .btn-primary span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-primary svg {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+
+  body[dir="rtl"] .btn-primary svg {
+    transform: scaleX(-1);
+  }
+
+  .btn-primary:hover svg {
+    transform: translateX(4px);
+  }
+
+  body[dir="rtl"] .btn-primary:hover svg {
+    transform: scaleX(-1) translateX(4px);
+  }
+
+  .hero-meta {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gray-mute);
+    font-size: 0.9rem;
+  }
+
+  /* === HERO ART === */
+  .hero-art {
+    position: relative;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .typo-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .typo-arabic {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: clamp(8rem, 18vw, 16rem);
+    line-height: 0.85;
+    color: var(--ink);
+    letter-spacing: -0.05em;
+    user-select: none;
+  }
+
+  body[dir="ltr"] .typo-arabic {
+    right: auto;
+    left: 0;
+  }
+
+  .typo-latin {
+    position: absolute;
+    bottom: 15%;
+    left: 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    color: var(--crimson);
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  body[dir="ltr"] .typo-latin {
+    left: auto;
+    right: 0;
+  }
+
+  .typo-meaning {
+    position: absolute;
+    top: 8%;
+    left: 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--gray-mute);
+    max-width: 12rem;
+    line-height: 1.4;
+  }
+
+  body[dir="ltr"] .typo-meaning {
+    left: auto;
+    right: 0;
+  }
+
+  .typo-meaning::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--gray-mute);
+    margin-bottom: 0.5rem;
+  }
+
+  /* === SECTION BASE === */
+  section {
+    padding: 6rem 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .container {
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--crimson);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  body[dir="rtl"] .section-eyebrow {
+    text-transform: none;
+    font-family: 'Tajawal', sans-serif;
+    font-style: normal;
+  }
+
+  .section-title {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+    max-width: 50rem;
+  }
+
+  body[dir="ltr"] .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+  }
+
+  /* === PROBLEM SECTION === */
+  .problem {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 8rem 2rem;
+  }
+
+  .problem .section-eyebrow {
+    color: var(--gold);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .problem-text h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  body[dir="ltr"] .problem-text h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+  }
+
+  .problem-text p {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: rgba(250, 247, 242, 0.8);
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .problem-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .stat-row {
+    border-bottom: 1px solid rgba(212, 207, 197, 0.2);
+    padding: 1.5rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+
+  .stat-row:first-child { border-top: 1px solid rgba(212, 207, 197, 0.2); }
+
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1;
+    color: var(--gold);
+    font-feature-settings: "tnum";
+  }
+
+  .stat-label {
+    font-size: 0.95rem;
+    color: rgba(250, 247, 242, 0.7);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* === DIFFERENCE SECTION === */
+  .difference {
+    background: var(--ivory);
+    padding: 8rem 2rem;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+    border-top: 1px solid var(--gray-line);
+    border-left: 1px solid var(--gray-line);
+  }
+
+  body[dir="rtl"] .pillars {
+    border-left: none;
+    border-right: 1px solid var(--gray-line);
+  }
+
+  .pillar {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--gray-line);
+    border-bottom: 1px solid var(--gray-line);
+    transition: background 0.3s ease;
+    position: relative;
+  }
+
+  body[dir="rtl"] .pillar {
+    border-right: none;
+    border-left: 1px solid var(--gray-line);
+  }
+
+  .pillar:hover {
+    background: var(--ivory-deep);
+  }
+
+  .pillar-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--crimson);
+    margin-bottom: 1rem;
+  }
+
+  .pillar h3 {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  body[dir="ltr"] .pillar h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+  }
+
+  .pillar p {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* === COMPARISON === */
+  .comparison {
+    background: var(--ivory-deep);
+    padding: 8rem 2rem;
+  }
+
+  .compare-table {
+    margin-top: 4rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    border-bottom: 1px solid var(--gray-line);
+    padding: 1.75rem 1rem;
+    align-items: center;
+  }
+
+  .compare-row:first-of-type {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 1.25rem 1rem;
+  }
+
+  .compare-row:first-of-type > div {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+
+  body[dir="ltr"] .compare-row:first-of-type > div {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+  }
+
+  .compare-feature {
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 1.05rem;
+  }
+
+  .compare-cell {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .compare-yes {
+    color: var(--crimson);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .compare-no {
+    color: var(--gray-mute);
+  }
+
+  /* === PHILOSOPHY SECTION === */
+  .philosophy {
+    padding: 10rem 2rem;
+    background: var(--ivory);
+    border-top: 1px solid var(--gray-line);
+    border-bottom: 1px solid var(--gray-line);
+  }
+
+  .philosophy-quote {
+    max-width: 56rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .philosophy-quote::before {
+    content: '٬٬';
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-size: 6rem;
+    color: var(--crimson);
+    line-height: 0.8;
+    margin-bottom: 1rem;
+  }
+
+  body[dir="ltr"] .philosophy-quote::before {
+    content: '"';
+  }
+
+  .philosophy-quote h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 300;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  body[dir="ltr"] .philosophy-quote h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .philosophy-quote h2 strong {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  body[dir="ltr"] .philosophy-quote h2 strong {
+    font-style: normal;
+  }
+
+  .philosophy-attribution {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gray-mute);
+    font-size: 1rem;
+  }
+
+  /* === CTA SECTION === */
+  .cta {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta::before {
+    content: 'حزم';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: clamp(20rem, 50vw, 40rem);
+    color: rgba(250, 247, 242, 0.03);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    letter-spacing: -0.05em;
+  }
+
+  body[dir="ltr"] .cta::before {
+    content: 'Hazm';
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .cta h2 {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  body[dir="ltr"] .cta h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+  }
+
+  .cta p {
+    font-size: 1.15rem;
+    color: rgba(250, 247, 242, 0.8);
+    margin-bottom: 3rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .btn-primary-light {
+    background: var(--ivory);
+    color: var(--ink);
+    border: none;
+    padding: 1.25rem 2.5rem;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary-light::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--crimson);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary-light:hover::before {
+    transform: translateY(0);
+  }
+
+  .btn-primary-light:hover {
+    color: var(--ivory);
+  }
+
+  .btn-primary-light span,
+  .btn-primary-light svg {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+
+  body[dir="rtl"] .btn-primary-light svg {
+    transform: scaleX(-1);
+  }
+
+  .cta-meta {
+    margin-top: 2rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gray-mute);
+    font-size: 0.9rem;
+  }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ivory);
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--gray-line);
+  }
+
+  .footer-content {
+    max-width: 75rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-logo {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  body[dir="ltr"] .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  .footer-meta {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gray-mute);
+    font-size: 0.85rem;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim-on-load {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .anim-on-load.delay-1 { animation-delay: 0.1s; }
+  .anim-on-load.delay-2 { animation-delay: 0.25s; }
+  .anim-on-load.delay-3 { animation-delay: 0.4s; }
+  .anim-on-load.delay-4 { animation-delay: 0.55s; }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding-top: 7rem;
+    }
+    .hero-art {
+      height: 40vh;
+      order: -1;
+    }
+    .typo-arabic {
+      font-size: clamp(6rem, 25vw, 12rem);
+    }
+    .typo-latin {
+      font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+    .problem-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+    .compare-row {
+      grid-template-columns: 1.2fr 1fr 1fr;
+      padding: 1.25rem 0.5rem;
+      font-size: 0.85rem;
+    }
+    .compare-feature {
+      font-size: 0.95rem;
+    }
+    section { padding: 5rem 1.25rem; }
+    nav { padding: 1rem 1.25rem; }
+    .nav-cta { padding: 0.5rem 1rem; font-size: 0.85rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 3rem; }
+    .nav-controls { gap: 0.75rem; }
+    .lang-toggle { padding: 0.35rem 0.75rem; font-size: 0.7rem; }
+    .compare-row {
+      grid-template-columns: 1.5fr 0.8fr 0.8fr;
+      gap: 0.5rem;
+    }
+  }
+
+  /* Form modal styles */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(14, 14, 14, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--ivory);
+    max-width: 32rem;
+    width: 100%;
+    padding: 3rem 2.5rem;
+    position: relative;
+    border: 1px solid var(--gray-line);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--ink);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body[dir="ltr"] .modal-close {
+    left: auto;
+    right: 1rem;
+  }
+
+  .modal h3 {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 900;
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  body[dir="ltr"] .modal h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+  }
+
+  .modal p {
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .modal a.form-link {
+    display: block;
+    background: var(--ink);
+    color: var(--ivory);
+    text-align: center;
+    padding: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    transition: background 0.3s ease;
+  }
+
+  .modal a.form-link:hover {
+    background: var(--crimson);
+  }
+
+  .modal-note {
+    font-size: 0.85rem;
+    color: var(--gray-mute);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    text-align: center;
+    margin-top: 1rem;
+  }
+</style>
+</head>
+<body dir="rtl" data-lang="ar">
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-logo" data-ar="حزم" data-en="Hazm">حزم</a>
+  <div class="nav-controls">
+    <button class="lang-toggle" id="langToggle">EN</button>
+    <a href="https://forms.gle/a6w19L9gK3yZdKqK6" target="_blank" rel="noopener" class="nav-cta" data-ar="سجّل اهتمامك" data-en="Join the list">سجّل اهتمامك</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow anim-on-load delay-1">
+      <span data-ar="نسخة تجريبية قادمة" data-en="Coming soon · early access">نسخة تجريبية قادمة</span>
+    </div>
+    <h1 class="anim-on-load delay-2">
+      <span data-ar-html="النتائج تأتي" data-en-html="Results follow">النتائج تأتي</span>
+      <em data-ar="بالحسم." data-en="discipline.">بالحسم.</em>
+    </h1>
+    <p class="hero-sub anim-on-load delay-3" data-ar="تطبيق تغذية وتدريب مبني على نموذج أخصائية تغذية حقيقية. يفهم إصابتك، يحترم صيامك، ويعطيك أرقاماً صادقة بدون تجميل." data-en="A nutrition and training app built on a real dietitian's framework. Understands your injuries, respects your fasting, and gives you honest numbers without sugar-coating.">
+      تطبيق تغذية وتدريب مبني على نموذج أخصائية تغذية حقيقية. يفهم إصابتك، يحترم صيامك، ويعطيك أرقاماً صادقة بدون تجميل.
+    </p>
+    <div class="hero-cta-group anim-on-load delay-4">
+      <a href="https://forms.gle/a6w19L9gK3yZdKqK6" target="_blank" rel="noopener" class="btn-primary">
+        <span data-ar="احجز مكانك" data-en="Reserve your spot">احجز مكانك</span>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+          <path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <span class="hero-meta" data-ar="مجاني · بدون التزام" data-en="Free · no commitment">مجاني · بدون التزام</span>
+    </div>
+  </div>
+
+  <div class="hero-art">
+    <div class="typo-stack">
+      <div class="typo-meaning anim-on-load delay-2" data-ar="ح ز م · اسم · صرامة، جدية، قطع التساهل" data-en="ḥazm · noun · firmness, decisiveness, refusal to make excuses">
+        ح ز م · اسم · صرامة، جدية، قطع التساهل
+      </div>
+      <div class="typo-arabic anim-on-load delay-3">حزم</div>
+      <div class="typo-latin anim-on-load delay-4">Hazm</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM SECTION -->
+<section class="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="problem-text reveal">
+        <div class="section-eyebrow" data-ar="المشكلة" data-en="The problem">المشكلة</div>
+        <h2 data-ar="معظم تطبيقات اللياقة لا تفهمك." data-en="Most fitness apps don't understand you.">
+          معظم تطبيقات اللياقة لا تفهمك.
+        </h2>
+        <p data-ar="بتعطيك خطة تدريب لشخص ما عنده إصابة. توصيات أكل لشخص ما بصوم. أرقام كالوريز محسوبة لشخص أمريكي يأكل ٣ وجبات بأوقات ثابتة." data-en="They hand you a training plan written for someone uninjured. Meal recommendations for someone who doesn't fast. Calorie targets calibrated for a 3-meal American eater.">
+          بتعطيك خطة تدريب لشخص ما عنده إصابة. توصيات أكل لشخص ما بصوم. أرقام كالوريز محسوبة لشخص أمريكي يأكل ٣ وجبات بأوقات ثابتة.
+        </p>
+        <p data-ar="ولما تتوقف عن الالتزام، بتلقى التطبيق يقولك «أحسنت! استمر!» — بدل ما يصارحك إنك مش بتتقدم." data-en="And when you fall off, the app pats you on the back with cheerful encouragement — instead of telling you the truth: you're not making progress.">
+          ولما تتوقف عن الالتزام، بتلقى التطبيق يقولك «أحسنت! استمر!» — بدل ما يصارحك إنك مش بتتقدم.
+        </p>
+      </div>
+
+      <div class="problem-stats reveal">
+        <div class="stat-row">
+          <div class="stat-num">٧٣٪</div>
+          <div class="stat-label" data-ar="من مستخدمي تطبيقات اللياقة يتوقفون خلال ٣ أشهر — السبب الأكبر: الخطة ما تناسبهم" data-en="of fitness app users quit within 3 months — biggest reason: the plan doesn't fit them">
+            من مستخدمي تطبيقات اللياقة يتوقفون خلال ٣ أشهر — السبب الأكبر: الخطة ما تناسبهم
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num">٤</div>
+          <div class="stat-label" data-ar="فقط من بين أكبر ٢٠ تطبيق لياقة يدعمون رمضان — وكلهم بميزة سطحية" data-en="of the top 20 fitness apps support Ramadan properly — and only at a surface level">
+            فقط من بين أكبر ٢٠ تطبيق لياقة يدعمون رمضان — وكلهم بميزة سطحية
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num">٠</div>
+          <div class="stat-label" data-ar="تطبيق يبني خطة تدريبك تلقائياً بناءً على إصابتك المحددة" data-en="apps that build your training plan automatically based on your specific injury">
+            تطبيق يبني خطة تدريبك تلقائياً بناءً على إصابتك المحددة
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENCE SECTION -->
+<section class="difference">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow" data-ar="الفرق" data-en="The difference">الفرق</div>
+      <h2 class="section-title" data-ar="حزم مبني على أربع ركائز ما تجتمع بأي تطبيق ثاني." data-en="Hazm is built on four pillars no other app combines.">
+        حزم مبني على أربع ركائز ما تجتمع بأي تطبيق ثاني.
+      </h2>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="pillar-num">٠١</div>
+        <h3 data-ar="نموذج أخصائية تغذية حقيقية" data-en="A real dietitian's framework">نموذج أخصائية تغذية حقيقية</h3>
+        <p data-ar="مش قاعدة بيانات عشوائية ولا اقتراحات AI سطحية. حزم مبني على نموذج تغذية فعلي طُبّق على آلاف المتدربين، بنية وجبات واضحة وقابلة للتبديل بحسب تفضيلاتك." data-en="Not a random food database or shallow AI suggestions. Hazm is built on an actual nutritional methodology applied to thousands of clients — clear meal categories with substitutions matching your preferences.">
+          مش قاعدة بيانات عشوائية ولا اقتراحات AI سطحية. حزم مبني على نموذج تغذية فعلي طُبّق على آلاف المتدربين، بنية وجبات واضحة وقابلة للتبديل بحسب تفضيلاتك.
+        </p>
+      </div>
+
+      <div class="pillar reveal">
+        <div class="pillar-num">٠٢</div>
+        <h3 data-ar="فلترة تلقائية للإصابات" data-en="Automatic injury filtering">فلترة تلقائية للإصابات</h3>
+        <p data-ar="إصابة بأسفل الظهر؟ ركبة؟ فتق غير مشخّص؟ حزم يحذف التمارين الخطرة من خطتك تلقائياً، ويبني برنامج بديل آمن بنفس النتائج. بدون ما تفكر، بدون ما تخطئ." data-en="Lower back? Knee? Undiagnosed hernia? Hazm automatically removes dangerous exercises from your plan and builds a safe alternative program with the same outcomes. No thinking required.">
+          إصابة بأسفل الظهر؟ ركبة؟ فتق غير مشخّص؟ حزم يحذف التمارين الخطرة من خطتك تلقائياً، ويبني برنامج بديل آمن بنفس النتائج. بدون ما تفكر، بدون ما تخطئ.
+        </p>
+      </div>
+
+      <div class="pillar reveal">
+        <div class="pillar-num">٠٣</div>
+        <h3 data-ar="فهم كامل للصيام الإسلامي" data-en="Full Islamic fasting integration">فهم كامل للصيام الإسلامي</h3>
+        <p data-ar="رمضان، صيام السنة (الإثنين والخميس)، الصيام المختلط — حزم يعيد توزيع وجباتك حسب أوقات المغرب والفجر. مش مجرد فلتر «حلال». الصيام جزء من بنية التطبيق نفسه." data-en="Ramadan, Sunnah fasts (Mondays and Thursdays), mixed fasting patterns — Hazm redistributes your meals around Maghrib and Fajr times. Not a 'halal filter'. Fasting is built into the app's core.">
+          رمضان، صيام السنة (الإثنين والخميس)، الصيام المختلط — حزم يعيد توزيع وجباتك حسب أوقات المغرب والفجر. مش مجرد فلتر «حلال». الصيام جزء من بنية التطبيق نفسه.
+        </p>
+      </div>
+
+      <div class="pillar reveal">
+        <div class="pillar-num">٠٤</div>
+        <h3 data-ar="عربي أصيل، مش مترجم" data-en="Native Arabic, not translated">عربي أصيل، مش مترجم</h3>
+        <p data-ar="مصمم من الصفر للقراءة من اليمين لليسار. خطوط عربية مدروسة. أرقام تختار شكلها (عربية أو هندية). ما تحس إنك تستخدم ترجمة من تطبيق إنجليزي." data-en="Designed from scratch for right-to-left reading. Carefully chosen Arabic typography. Numbers in your preferred form (Arabic or Hindi). Doesn't feel like a translation of an English app.">
+          مصمم من الصفر للقراءة من اليمين لليسار. خطوط عربية مدروسة. أرقام تختار شكلها (عربية أو هندية). ما تحس إنك تستخدم ترجمة من تطبيق إنجليزي.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="comparison">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow" data-ar="المقارنة" data-en="Comparison">المقارنة</div>
+      <h2 class="section-title" data-ar="ليش حزم؟ بالأرقام." data-en="Why Hazm? In one table.">
+        ليش حزم؟ بالأرقام.
+      </h2>
+    </div>
+
+    <div class="compare-table reveal">
+      <div class="compare-row">
+        <div data-ar="الميزة" data-en="Feature">الميزة</div>
+        <div data-ar="تطبيقات شائعة" data-en="Popular apps">تطبيقات شائعة</div>
+        <div>Hazm</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-feature" data-ar="فلترة تلقائية للإصابات" data-en="Automatic injury filtering">فلترة تلقائية للإصابات</div>
+        <div class="compare-cell compare-no" data-ar="—" data-en="—">—</div>
+        <div class="compare-cell compare-yes" data-ar="مدمج" data-en="built-in">مدمج</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-feature" data-ar="إعادة توزيع وجبات رمضان" data-en="Ramadan meal redistribution">إعادة توزيع وجبات رمضان</div>
+        <div class="compare-cell compare-no" data-ar="فلتر حلال فقط" data-en="halal filter only">فلتر حلال فقط</div>
+        <div class="compare-cell compare-yes" data-ar="بناءً على وقت أذانك" data-en="based on your local prayer times">بناءً على وقت أذانك</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-feature" data-ar="نموذج أخصائية تغذية" data-en="Dietitian methodology">نموذج أخصائية تغذية</div>
+        <div class="compare-cell compare-no" data-ar="عام / AI" data-en="generic / AI">عام / AI</div>
+        <div class="compare-cell compare-yes" data-ar="مبني على نموذج فعلي" data-en="actual practice-based">مبني على نموذج فعلي</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-feature" data-ar="أرقام صادقة بدون تشجيع زائف" data-en="Honest numbers, no fake encouragement">أرقام صادقة بدون تشجيع زائف</div>
+        <div class="compare-cell compare-no" data-ar="«أحسنت! استمر!»" data-en="“Great job! Keep going!”">«أحسنت! استمر!»</div>
+        <div class="compare-cell compare-yes" data-ar="حقيقة بلا تجميل" data-en="truth, no sugar-coating">حقيقة بلا تجميل</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-feature" data-ar="عربية أصيلة (RTL)" data-en="Native Arabic (RTL)">عربية أصيلة (RTL)</div>
+        <div class="compare-cell compare-no" data-ar="ترجمة" data-en="translated">ترجمة</div>
+        <div class="compare-cell compare-yes" data-ar="مصمم بالعربية" data-en="designed in Arabic first">مصمم بالعربية</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="container">
+    <div class="philosophy-quote reveal">
+      <h2 data-ar='حزم ما يعدك بنتائج خرافية. <strong>يعدك بنظام تقدر تلتزم فيه</strong>، وأرقام صادقة تخبرك إذا فعلاً بتتقدم.' data-en='Hazm doesn’t promise miracle results. <strong>It promises a system you can stick to</strong>, and honest numbers that tell you whether you’re actually progressing.'>
+        حزم ما يعدك بنتائج خرافية. <strong>يعدك بنظام تقدر تلتزم فيه</strong>، وأرقام صادقة تخبرك إذا فعلاً بتتقدم.
+      </h2>
+      <div class="philosophy-attribution" data-ar="— فلسفة التطبيق" data-en="— our principle">— فلسفة التطبيق</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-content">
+    <h2 class="reveal" data-ar="كن أول من يجرّب حزم." data-en="Be among the first to try Hazm.">
+      كن أول من يجرّب حزم.
+    </h2>
+    <p class="reveal" data-ar="نطلق نسخة تجريبية مغلقة قريباً. سجّل اهتمامك الآن وستحصل على وصول مبكر وخصم دائم على أي اشتراك مستقبلي." data-en="We're launching a closed beta soon. Register your interest now to get early access and a permanent discount on any future subscription.">
+      نطلق نسخة تجريبية مغلقة قريباً. سجّل اهتمامك الآن وستحصل على وصول مبكر وخصم دائم على أي اشتراك مستقبلي.
+    </p>
+    <a href="https://forms.gle/a6w19L9gK3yZdKqK6" target="_blank" rel="noopener" class="btn-primary-light reveal" id="openModal">
+      <span data-ar="احجز مكانك بالنسخة التجريبية" data-en="Reserve your beta spot">احجز مكانك بالنسخة التجريبية</span>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <div class="cta-meta reveal" data-ar="بدون التزام · لا نرسل سبام · إيميل واحد عند الإطلاق فقط" data-en="No commitment · no spam · one email at launch only">
+      بدون التزام · لا نرسل سبام · إيميل واحد عند الإطلاق فقط
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo" data-ar="حزم" data-en="Hazm">حزم</div>
+    <div class="footer-meta" data-ar="© ٢٠٢٦ حزم. كل الحقوق محفوظة." data-en="© 2026 Hazm. All rights reserved.">
+      © ٢٠٢٦ حزم. كل الحقوق محفوظة.
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" id="closeModal">×</button>
+    <h3 data-ar="نوصلك للنموذج" data-en="One quick step">نوصلك للنموذج</h3>
+    <p data-ar="عبّي النموذج التالي بإيميلك وبضع أسئلة سريعة. ٣٠ ثانية فقط، وتساعدنا نبني حزم بشكل أحسن." data-en="Fill the form below with your email and a few quick questions. 30 seconds total, and it helps us build Hazm better.">
+      عبّي النموذج التالي بإيميلك وبضع أسئلة سريعة. ٣٠ ثانية فقط، وتساعدنا نبني حزم بشكل أحسن.
+    </p>
+    <a href="#" class="form-link" id="formLink" target="_blank" rel="noopener">
+      <span data-ar="افتح نموذج التسجيل ←" data-en="Open registration form →">افتح نموذج التسجيل ←</span>
+    </a>
+    <p class="modal-note" data-ar="بيفتح نموذج Google Forms ببرنامج جديد" data-en="Opens Google Forms in a new tab">
+      بيفتح نموذج Google Forms ببرنامج جديد
+    </p>
+  </div>
+</div>
+
+<script>
+  // === LANGUAGE TOGGLE ===
+  const langToggle = document.getElementById('langToggle');
+  const body = document.body;
+
+  function setLang(lang) {
+    body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    body.setAttribute('data-lang', lang);
+    body.setAttribute('lang', lang);
+    langToggle.textContent = lang === 'ar' ? 'EN' : 'AR';
+
+    document.querySelectorAll('[data-ar]').forEach(el => {
+      const text = el.getAttribute(`data-${lang}`);
+      if (text) el.textContent = text;
+    });
+
+    document.querySelectorAll('[data-ar-html]').forEach(el => {
+      const html = el.getAttribute(`data-${lang}-html`);
+      if (html) el.innerHTML = html;
+    });
+
+    // Handle elements with HTML content
+    document.querySelectorAll('h2[data-ar]').forEach(el => {
+      const text = el.getAttribute(`data-${lang}`);
+      if (text && text.includes('<')) {
+        el.innerHTML = text;
+      }
+    });
+  }
+
+  langToggle.addEventListener('click', () => {
+    const currentLang = body.getAttribute('data-lang');
+    setLang(currentLang === 'ar' ? 'en' : 'ar');
+  });
+
+  // === MODAL (legacy, kept for backwards compatibility) ===
+  const modal = document.getElementById('modal');
+  const closeBtn = document.getElementById('closeModal');
+  const formLink = document.getElementById('formLink');
+
+  if (formLink) formLink.href = 'https://forms.gle/a6w19L9gK3yZdKqK6';
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  }
+
+  // === SCROLL REVEAL ===
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // === ANALYTICS PLACEHOLDER ===
+  // To add analytics, drop your Plausible/Fathom/GA snippet here
+  // Example for Plausible:
+  // <script defer data-domain="hazm.app" src="https://plausible.io/js/script.js"><\/script>
+</script>
+
+</body>
+</html>
