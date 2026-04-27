@@ -1,1270 +1,1586 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="حزم — تطبيق لياقة وتغذية مبني على نموذج أخصائية تغذية حقيقية. يحترم إصابتك، يفهم صيامك، ويعطيك أرقاماً صادقة.">
-<title>حزم · Hazm</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>حزم — صم. تدرّب. احزم أمرك.</title>
+<meta name="description" content="أول مرافق لياقة يفهم رمضان والصيام الجاف وتبديل الأدوات والعودة بعد الإصابة. مبني للحياة الحقيقية، لا لإعلانات الصالات." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root {
-    --ivory: #FAF7F2;
-    --ivory-deep: #F0EBE2;
-    --ink: #0E0E0E;
-    --ink-soft: #2A2A2A;
-    --gray-line: #D4CFC5;
-    --gray-mute: #8A8579;
-    --crimson: #8B1F1F;
-    --crimson-deep: #5E1414;
-    --gold: #B8954A;
+  /* ===================== THEME TOKENS ===================== */
+  :root, [data-theme="dark"] {
+    --bg-page: #050810;
+    --bg-primary: #0d1117;
+    --bg-deep: #0a1a2a;
+    --bg-elevated: #161b22;
+    --bg-elevated-2: #1c222c;
+    --bg-amber: #1a1200;
+    --bg-purple-tint: #0d0a1a;
+    --section-tint: rgba(13,17,23,0.5);
+    --section-tint-strong: rgba(13,17,23,0.7);
+    --nav-bg: rgba(13,17,23,0.72);
+    --pillar-fade: rgba(22,27,34,0.4);
+    --quote-bg: rgba(13,17,23,0.6);
+    --strip-bg: rgba(13,17,23,0.4);
+
+    --border: #30363d;
+    --border-strong: #444c56;
+
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --text-inverse: #0d1117;
+
+    --cyan: #4fc3f7;
+    --cyan-fill-end: #81d4fa;
+    --cyan-dim: rgba(79,195,247,0.12);
+    --cyan-glow: rgba(79,195,247,0.4);
+    --cyan-glow-soft: rgba(79,195,247,0.15);
+    --cyan-on-fill: #001018;
+
+    --green: #81c784;
+    --green-dim: rgba(129,199,132,0.12);
+
+    --purple: #ce93d8;
+    --purple-dim: rgba(206,147,216,0.10);
+    --purple-tint-bg: rgba(206,147,216,0.06);
+    --purple-on-fill: #1a0a1a;
+
+    --gold: #ffb74d;
+    --gold-dim: rgba(255,183,77,0.12);
+
+    --grid-dot: rgba(79,195,247,0.06);
+    --shadow-phone: 0 40px 80px -20px rgba(0,0,0,0.7), 0 0 100px rgba(79,195,247,0.08);
+    --shadow-cta: 0 12px 30px -10px rgba(79,195,247,0.5);
+
+    --aurora-1: rgba(79,195,247,0.18);
+    --aurora-2: rgba(206,147,216,0.12);
+    --aurora-3: rgba(255,183,77,0.08);
+
+    color-scheme: dark;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    background: var(--ivory);
-    color: var(--ink);
-    line-height: 1.6;
-    overflow-x: hidden;
+  [data-theme="light"] {
+    --bg-page: #fafbfc;
+    --bg-primary: #ffffff;
+    --bg-deep: #eef3f8;
+    --bg-elevated: #ffffff;
+    --bg-elevated-2: #f6f8fa;
+    --bg-amber: #fff8e1;
+    --bg-purple-tint: #f7eef9;
+    --section-tint: rgba(208,215,222,0.18);
+    --section-tint-strong: rgba(208,215,222,0.32);
+    --nav-bg: rgba(255,255,255,0.82);
+    --pillar-fade: rgba(246,248,250,0.5);
+    --quote-bg: rgba(246,248,250,0.7);
+    --strip-bg: rgba(246,248,250,0.6);
+
+    --border: #d0d7de;
+    --border-strong: #afb8c1;
+
+    --text-primary: #1f2328;
+    --text-secondary: #57606a;
+    --text-muted: #6e7781;
+    --text-inverse: #ffffff;
+
+    --cyan: #0277bd;
+    --cyan-fill-end: #29b6f6;
+    --cyan-dim: rgba(2,119,189,0.10);
+    --cyan-glow: rgba(2,119,189,0.28);
+    --cyan-glow-soft: rgba(2,119,189,0.10);
+    --cyan-on-fill: #ffffff;
+
+    --green: #2e7d32;
+    --green-dim: rgba(46,125,50,0.10);
+
+    --purple: #7b1fa2;
+    --purple-dim: rgba(123,31,162,0.10);
+    --purple-tint-bg: rgba(123,31,162,0.05);
+    --purple-on-fill: #ffffff;
+
+    --gold: #c2410c;
+    --gold-dim: rgba(194,65,12,0.10);
+
+    --grid-dot: rgba(2,119,189,0.06);
+    --shadow-phone: 0 40px 80px -20px rgba(15,23,42,0.18), 0 0 80px rgba(2,119,189,0.06);
+    --shadow-cta: 0 12px 30px -10px rgba(2,119,189,0.4);
+
+    --aurora-1: rgba(2,119,189,0.13);
+    --aurora-2: rgba(123,31,162,0.08);
+    --aurora-3: rgba(194,65,12,0.06);
+
+    color-scheme: light;
+  }
+
+  /* ===================== BASE ===================== */
+  * { box-sizing: border-box; }
+  html, body {
+    background: var(--bg-page);
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
+    margin: 0;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-
-  body[dir="ltr"] {
-    font-family: 'Inter', sans-serif;
+  body {
+    font-family: 'IBM Plex Sans Arabic', 'Inter', sans-serif;
+    background-image: radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 0);
+    background-size: 32px 32px;
   }
+  [lang="en"] body { font-family: 'Inter', sans-serif; }
 
-  /* Grain texture overlay */
-  body::before {
-    content: '';
-    position: fixed;
+  .display { font-family: 'Cairo', 'Space Grotesk', sans-serif; letter-spacing: -0.01em; }
+  [lang="en"] .display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ===================== AURORA HERO GLOW ===================== */
+  .aurora {
+    position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     pointer-events: none;
-    z-index: 1;
-    mix-blend-mode: multiply;
+    background:
+      radial-gradient(ellipse 900px 500px at 20% 0%, var(--aurora-1), transparent 60%),
+      radial-gradient(ellipse 700px 400px at 80% 20%, var(--aurora-2), transparent 60%),
+      radial-gradient(ellipse 600px 300px at 50% 80%, var(--aurora-3), transparent 60%);
+  }
+  [dir="rtl"] .aurora {
+    background:
+      radial-gradient(ellipse 900px 500px at 80% 0%, var(--aurora-1), transparent 60%),
+      radial-gradient(ellipse 700px 400px at 20% 20%, var(--aurora-2), transparent 60%),
+      radial-gradient(ellipse 600px 300px at 50% 80%, var(--aurora-3), transparent 60%);
   }
 
-  /* === NAVIGATION === */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.25rem 2rem;
-    background: rgba(250, 247, 242, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--gray-line);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* ===================== GRADIENT TEXT ===================== */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--cyan-fill-end) 40%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .gradient-text-warm {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .nav-logo {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    text-decoration: none;
-  }
-
-  body[dir="ltr"] .nav-logo {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-
-  .nav-controls {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
-  .lang-toggle {
-    background: none;
-    border: 1px solid var(--ink);
-    padding: 0.4rem 1rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    color: var(--ink);
-    transition: all 0.3s ease;
-    font-weight: 500;
-  }
-
-  .lang-toggle:hover {
-    background: var(--ink);
-    color: var(--ivory);
-  }
-
-  .nav-cta {
-    background: var(--ink);
-    color: var(--ivory);
-    border: none;
-    padding: 0.6rem 1.5rem;
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  body[dir="ltr"] .nav-cta {
-    font-family: 'Inter', sans-serif;
-  }
-
-  .nav-cta:hover {
-    background: var(--crimson);
-  }
-
-  /* === HERO === */
-  .hero {
-    min-height: 100vh;
-    padding: 9rem 2rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    position: relative;
-    align-items: center;
-  }
-
-  .hero-text {
-    z-index: 2;
-  }
-
-  .hero-eyebrow {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--crimson);
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.02em;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    width: 2.5rem;
-    height: 1px;
-    background: var(--crimson);
-  }
-
-  .hero h1 {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    margin-bottom: 1.5rem;
-    color: var(--ink);
-  }
-
-  body[dir="ltr"] .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    letter-spacing: -0.03em;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--crimson);
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-  }
-
-  body[dir="rtl"] .hero h1 em {
-    font-family: 'Tajawal', sans-serif;
-    font-style: normal;
-    font-weight: 300;
-  }
-
-  .hero-sub {
-    font-size: 1.25rem;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    margin-bottom: 2.5rem;
-    max-width: 36rem;
-    font-weight: 300;
-  }
-
-  .hero-cta-group {
-    display: flex;
-    gap: 1.25rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
+  /* ===================== BUTTONS ===================== */
   .btn-primary {
-    background: var(--ink);
-    color: var(--ivory);
+    background: var(--cyan);
+    color: var(--cyan-on-fill);
+    font-family: 'Cairo', 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 14px 28px;
     border: none;
-    padding: 1.1rem 2.25rem;
-    font-family: inherit;
-    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  [lang="en"] .btn-primary { font-family: 'Space Grotesk', sans-serif; }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow: var(--shadow-cta);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 13px 26px;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    gap: 8px;
+    transition: all 0.2s ease;
+    font-size: 15px;
+  }
+  .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ===================== CARD ===================== */
+  .card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    transition: background 0.3s ease, border-color 0.3s ease;
   }
 
-  .btn-primary::before {
+  /* ===================== PILL ===================== */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--cyan-dim);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-family: 'Cairo', 'Space Grotesk', sans-serif;
+    letter-spacing: 0.04em;
+  }
+  [lang="en"] .pill { font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ===================== NAV ===================== */
+  .nav-bg {
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  .nav-link {
+    font-size: 14px;
+    color: var(--text-secondary);
+    transition: color 0.15s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-link:hover { color: var(--cyan); }
+
+  /* ===================== TOGGLES ===================== */
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+  }
+  .toggle-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+  .lang-toggle { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .lang-toggle .active-lang { color: var(--cyan); font-weight: 600; }
+  .theme-toggle { width: 36px; height: 36px; padding: 0; justify-content: center; font-size: 15px; }
+  .theme-toggle .icon-sun, .theme-toggle .icon-moon { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: inline; }
+  [data-theme="light"] .theme-toggle .icon-moon { display: inline; }
+
+  /* ===================== PHONE (always dark — represents the app UI) ===================== */
+  .phone {
+    --bg-primary: #0d1117;
+    --bg-elevated: #161b22;
+    --border: #30363d;
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --cyan: #4fc3f7;
+    --cyan-dim: rgba(79,195,247,0.12);
+    --cyan-fill-end: #81d4fa;
+    --green: #81c784;
+    --green-dim: rgba(129,199,132,0.12);
+    --purple: #ce93d8;
+    --purple-dim: rgba(206,147,216,0.12);
+    --gold: #ffb74d;
+    --gold-dim: rgba(255,183,77,0.12);
+
+    width: 280px;
+    height: 580px;
+    background: #0d1117;
+    color: #e6edf3;
+    border-radius: 36px;
+    border: 1px solid #30363d;
+    box-shadow: var(--shadow-phone), 0 0 0 6px #1a1f26, 0 0 0 7px #2a3038;
+    overflow: hidden;
+    position: relative;
+    direction: ltr;
+  }
+  .phone-screen { height: 100%; overflow: hidden; position: relative; }
+  .notch {
+    position: absolute; top: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 20px;
+    background: #000; border-radius: 12px; z-index: 10;
+  }
+
+  /* ===================== ANIMATIONS ===================== */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float { animation: float 6s ease-in-out infinite; }
+  .float-delay { animation: float 6s ease-in-out infinite; animation-delay: -3s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; animation: fadeUp 0.8s ease-out forwards; }
+  .reveal-1 { animation-delay: 0.1s; }
+  .reveal-2 { animation-delay: 0.25s; }
+  .reveal-3 { animation-delay: 0.4s; }
+  .reveal-4 { animation-delay: 0.55s; }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 var(--cyan-glow); }
+    70% { box-shadow: 0 0 0 16px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+  .pulse { animation: pulse-ring 2.5s infinite; }
+
+  @keyframes ring-fill {
+    from { stroke-dashoffset: 408; }
+    to { stroke-dashoffset: 120; }
+  }
+  .ring-anim { animation: ring-fill 2.5s ease-out forwards; }
+
+  /* ===================== SECTION TAG ===================== */
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Cairo', 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--cyan);
+  }
+  [lang="en"] .section-tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .section-tag::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--cyan);
+  }
+
+  /* ===================== PILLAR ===================== */
+  .pillar {
+    position: relative;
+    padding: 32px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--pillar-fade) 100%);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .pillar:hover { transform: translateY(-4px); border-color: var(--border-strong); }
+  .pillar::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: var(--crimson);
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.7;
   }
+  .pillar-cyan { --accent: var(--cyan); }
+  .pillar-purple { --accent: var(--purple); }
+  .pillar-green { --accent: var(--green); }
 
-  .btn-primary:hover::before {
-    transform: translateY(0);
-  }
-
-  .btn-primary span {
-    position: relative;
-    z-index: 1;
-  }
-
-  .btn-primary svg {
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease;
-  }
-
-  body[dir="rtl"] .btn-primary svg {
-    transform: scaleX(-1);
-  }
-
-  .btn-primary:hover svg {
-    transform: translateX(4px);
-  }
-
-  body[dir="rtl"] .btn-primary:hover svg {
-    transform: scaleX(-1) translateX(4px);
-  }
-
-  .hero-meta {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    color: var(--gray-mute);
-    font-size: 0.9rem;
-  }
-
-  /* === HERO ART === */
-  .hero-art {
-    position: relative;
-    height: 70vh;
+  .pillar-icon {
+    width: 56px; height: 56px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 26px;
+    margin-bottom: 20px;
   }
+  .pillar-cyan .pillar-icon { background: var(--cyan-dim); border: 1px solid var(--cyan); }
+  .pillar-purple .pillar-icon { background: var(--purple-dim); border: 1px solid var(--purple); }
+  .pillar-green .pillar-icon { background: var(--green-dim); border: 1px solid var(--green); }
 
-  .typo-stack {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  .typo-arabic {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: clamp(8rem, 18vw, 16rem);
-    line-height: 0.85;
-    color: var(--ink);
-    letter-spacing: -0.05em;
-    user-select: none;
-  }
-
-  body[dir="ltr"] .typo-arabic {
-    right: auto;
-    left: 0;
-  }
-
-  .typo-latin {
-    position: absolute;
-    bottom: 15%;
-    left: 0;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(3rem, 7vw, 5.5rem);
-    color: var(--crimson);
-    letter-spacing: -0.02em;
-    user-select: none;
-  }
-
-  body[dir="ltr"] .typo-latin {
-    left: auto;
-    right: 0;
-  }
-
-  .typo-meaning {
-    position: absolute;
-    top: 8%;
-    left: 0;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.9rem;
-    color: var(--gray-mute);
-    max-width: 12rem;
-    line-height: 1.4;
-  }
-
-  body[dir="ltr"] .typo-meaning {
-    left: auto;
-    right: 0;
-  }
-
-  .typo-meaning::before {
-    content: '';
-    display: block;
-    width: 2rem;
-    height: 1px;
-    background: var(--gray-mute);
-    margin-bottom: 0.5rem;
-  }
-
-  /* === SECTION BASE === */
-  section {
-    padding: 6rem 2rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .container {
-    max-width: 75rem;
-    margin: 0 auto;
-  }
-
-  .section-eyebrow {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.85rem;
-    color: var(--crimson);
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  body[dir="rtl"] .section-eyebrow {
-    text-transform: none;
-    font-family: 'Tajawal', sans-serif;
-    font-style: normal;
-  }
-
-  .section-title {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: clamp(2.25rem, 5vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 2rem;
-    max-width: 50rem;
-  }
-
-  body[dir="ltr"] .section-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-  }
-
-  /* === PROBLEM SECTION === */
-  .problem {
-    background: var(--ink);
-    color: var(--ivory);
-    padding: 8rem 2rem;
-  }
-
-  .problem .section-eyebrow {
-    color: var(--gold);
-  }
-
-  .problem-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  .problem-text h2 {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 2rem;
-  }
-
-  body[dir="ltr"] .problem-text h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-  }
-
-  .problem-text p {
-    font-size: 1.15rem;
-    line-height: 1.75;
-    color: rgba(250, 247, 242, 0.8);
-    margin-bottom: 1.25rem;
-    font-weight: 300;
-  }
-
-  .problem-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .stat-row {
-    border-bottom: 1px solid rgba(212, 207, 197, 0.2);
-    padding: 1.5rem 0;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1.5rem;
-    align-items: baseline;
-  }
-
-  .stat-row:first-child { border-top: 1px solid rgba(212, 207, 197, 0.2); }
-
-  .stat-num {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(3rem, 5vw, 4.5rem);
-    line-height: 1;
-    color: var(--gold);
-    font-feature-settings: "tnum";
-  }
-
-  .stat-label {
-    font-size: 0.95rem;
-    color: rgba(250, 247, 242, 0.7);
-    line-height: 1.5;
-    font-weight: 300;
-  }
-
-  /* === DIFFERENCE SECTION === */
-  .difference {
-    background: var(--ivory);
-    padding: 8rem 2rem;
-  }
-
-  .pillars {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-    margin-top: 4rem;
-    border-top: 1px solid var(--gray-line);
-    border-left: 1px solid var(--gray-line);
-  }
-
-  body[dir="rtl"] .pillars {
-    border-left: none;
-    border-right: 1px solid var(--gray-line);
-  }
-
-  .pillar {
-    padding: 3rem 2.5rem;
-    border-right: 1px solid var(--gray-line);
-    border-bottom: 1px solid var(--gray-line);
-    transition: background 0.3s ease;
-    position: relative;
-  }
-
-  body[dir="rtl"] .pillar {
-    border-right: none;
-    border-left: 1px solid var(--gray-line);
-  }
-
-  .pillar:hover {
-    background: var(--ivory-deep);
-  }
-
-  .pillar-num {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--crimson);
-    margin-bottom: 1rem;
-  }
-
-  .pillar h3 {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-  }
-
-  body[dir="ltr"] .pillar h3 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-  }
-
-  .pillar p {
-    color: var(--ink-soft);
-    font-size: 1rem;
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  /* === COMPARISON === */
-  .comparison {
-    background: var(--ivory-deep);
-    padding: 8rem 2rem;
-  }
-
-  .compare-table {
-    margin-top: 4rem;
-    border-top: 2px solid var(--ink);
-  }
-
+  /* ===================== COMPARISON TABLE ===================== */
   .compare-row {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    border-bottom: 1px solid var(--gray-line);
-    padding: 1.75rem 1rem;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 12px;
+    padding: 16px 20px;
     align-items: center;
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.3s ease;
   }
-
-  .compare-row:first-of-type {
-    background: var(--ink);
-    color: var(--ivory);
-    padding: 1.25rem 1rem;
-  }
-
-  .compare-row:first-of-type > div {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.02em;
-  }
-
-  body[dir="ltr"] .compare-row:first-of-type > div {
-    font-family: 'Inter', sans-serif;
+  .compare-row:last-child { border-bottom: none; }
+  .compare-head {
+    font-family: 'Cairo', 'Space Grotesk', sans-serif;
+    font-size: 12px;
     font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    background: var(--section-tint);
   }
+  [lang="en"] .compare-head { font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
 
-  .compare-feature {
-    font-weight: 500;
-    color: var(--ink);
-    font-size: 1.05rem;
-  }
-
-  .compare-cell {
-    text-align: center;
-    color: var(--ink-soft);
-    font-size: 0.95rem;
-  }
-
-  .compare-yes {
-    color: var(--crimson);
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 500;
-  }
-
-  .compare-no {
-    color: var(--gray-mute);
-  }
-
-  /* === PHILOSOPHY SECTION === */
-  .philosophy {
-    padding: 10rem 2rem;
-    background: var(--ivory);
-    border-top: 1px solid var(--gray-line);
-    border-bottom: 1px solid var(--gray-line);
-  }
-
-  .philosophy-quote {
-    max-width: 56rem;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .philosophy-quote::before {
-    content: '٬٬';
-    display: block;
-    font-family: 'Fraunces', serif;
-    font-size: 6rem;
-    color: var(--crimson);
-    line-height: 0.8;
-    margin-bottom: 1rem;
-  }
-
-  body[dir="ltr"] .philosophy-quote::before {
-    content: '"';
-  }
-
-  .philosophy-quote h2 {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 300;
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-    line-height: 1.4;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    margin-bottom: 2rem;
-  }
-
-  body[dir="ltr"] .philosophy-quote h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-
-  .philosophy-quote h2 strong {
-    font-weight: 700;
-    color: var(--ink);
-  }
-
-  body[dir="ltr"] .philosophy-quote h2 strong {
-    font-style: normal;
-  }
-
-  .philosophy-attribution {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    color: var(--gray-mute);
-    font-size: 1rem;
-  }
-
-  /* === CTA SECTION === */
-  .cta {
-    background: var(--ink);
-    color: var(--ivory);
-    padding: 8rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta::before {
-    content: 'حزم';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: clamp(20rem, 50vw, 40rem);
-    color: rgba(250, 247, 242, 0.03);
-    pointer-events: none;
-    user-select: none;
-    z-index: 0;
-    letter-spacing: -0.05em;
-  }
-
-  body[dir="ltr"] .cta::before {
-    content: 'Hazm';
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-weight: 300;
-  }
-
-  .cta-content {
-    position: relative;
-    z-index: 1;
-    max-width: 48rem;
-    margin: 0 auto;
-  }
-
-  .cta h2 {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.5rem;
-  }
-
-  body[dir="ltr"] .cta h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-  }
-
-  .cta p {
-    font-size: 1.15rem;
-    color: rgba(250, 247, 242, 0.8);
-    margin-bottom: 3rem;
-    font-weight: 300;
-    line-height: 1.7;
-  }
-
-  .btn-primary-light {
-    background: var(--ivory);
-    color: var(--ink);
-    border: none;
-    padding: 1.25rem 2.5rem;
-    font-family: inherit;
-    font-size: 1.05rem;
-    font-weight: 500;
+  /* ===================== FAQ ===================== */
+  details.faq {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
     cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
-
-  .btn-primary-light::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--crimson);
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-  }
-
-  .btn-primary-light:hover::before {
-    transform: translateY(0);
-  }
-
-  .btn-primary-light:hover {
-    color: var(--ivory);
-  }
-
-  .btn-primary-light span,
-  .btn-primary-light svg {
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease;
-  }
-
-  body[dir="rtl"] .btn-primary-light svg {
-    transform: scaleX(-1);
-  }
-
-  .cta-meta {
-    margin-top: 2rem;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    color: var(--gray-mute);
-    font-size: 0.9rem;
-  }
-
-  /* === FOOTER === */
-  footer {
-    background: var(--ivory);
-    padding: 3rem 2rem;
-    border-top: 1px solid var(--gray-line);
-  }
-
-  .footer-content {
-    max-width: 75rem;
-    margin: 0 auto;
+  details.faq summary {
+    font-family: 'Cairo', 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    list-style: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    color: var(--text-primary);
+    gap: 16px;
+  }
+  [lang="en"] details.faq summary { font-family: 'Space Grotesk', sans-serif; }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::after {
+    content: '＋';
+    font-size: 18px;
+    color: var(--cyan);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  details.faq[open] summary::after { content: '−'; }
+  details.faq p {
+    margin-top: 12px;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    font-size: 15px;
   }
 
-  .footer-logo {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: 1.25rem;
-    color: var(--ink);
-    letter-spacing: -0.02em;
+  /* ===================== MARQUEE ===================== */
+  .tag-strip {
+    display: flex;
+    gap: 12px;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
   }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .tag-strip-inner {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+    animation: scroll 30s linear infinite;
+  }
+  .tag-chip {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tag-chip strong { color: var(--text-primary); font-family: 'Cairo', 'Space Grotesk', sans-serif; }
+  [lang="en"] .tag-chip strong { font-family: 'Space Grotesk', sans-serif; }
 
-  body[dir="ltr"] .footer-logo {
-    font-family: 'Fraunces', serif;
+  /* ===================== STATS ===================== */
+  .stat-num {
+    font-family: 'Cairo', 'Space Grotesk', sans-serif;
+    font-size: 42px;
     font-weight: 700;
-    font-style: italic;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  [lang="en"] .stat-num { font-family: 'Space Grotesk', sans-serif; }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
   }
 
-  .footer-meta {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    color: var(--gray-mute);
-    font-size: 0.85rem;
+  /* ===================== QUOTE ===================== */
+  .quote-card {
+    position: relative;
+    padding: 36px 40px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+  }
+  .quote-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px; inset-inline-start: 24px;
+    font-family: 'Cairo', 'Space Grotesk', sans-serif;
+    font-size: 80px;
+    color: var(--cyan);
+    line-height: 1;
   }
 
-  /* === ANIMATIONS === */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* ===================== FOOTER ===================== */
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    padding: 60px 0 40px;
   }
 
-  .anim-on-load {
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards;
+  /* ===================== MINI PHONE CARDS ===================== */
+  .mini-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 12px;
+    color: #e6edf3;
+  }
+  .mini-card-cyan { border-color: #4fc3f7; background: rgba(79,195,247,0.12); }
+  .mini-card-purple { border-color: #ce93d8; background: rgba(206,147,216,0.12); }
+  .mini-card-gold { border-color: #ffb74d; background: rgba(255,183,77,0.12); }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 768px) {
+    .stat-num { font-size: 32px; }
+    .pillar { padding: 24px; }
   }
 
-  .anim-on-load.delay-1 { animation-delay: 0.1s; }
-  .anim-on-load.delay-2 { animation-delay: 0.25s; }
-  .anim-on-load.delay-3 { animation-delay: 0.4s; }
-  .anim-on-load.delay-4 { animation-delay: 0.55s; }
-
-  /* Scroll reveal */
-  .reveal {
+  /* ===================== SCROLL REVEAL ===================== */
+  .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
-
-  .reveal.visible {
+  .scroll-reveal.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* === RESPONSIVE === */
-  @media (max-width: 900px) {
-    .hero {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      padding-top: 7rem;
-    }
-    .hero-art {
-      height: 40vh;
-      order: -1;
-    }
-    .typo-arabic {
-      font-size: clamp(6rem, 25vw, 12rem);
-    }
-    .typo-latin {
-      font-size: clamp(2.5rem, 10vw, 4rem);
-    }
-    .problem-grid {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-    .pillars {
-      grid-template-columns: 1fr;
-    }
-    .compare-row {
-      grid-template-columns: 1.2fr 1fr 1fr;
-      padding: 1.25rem 0.5rem;
-      font-size: 0.85rem;
-    }
-    .compare-feature {
-      font-size: 0.95rem;
-    }
-    section { padding: 5rem 1.25rem; }
-    nav { padding: 1rem 1.25rem; }
-    .nav-cta { padding: 0.5rem 1rem; font-size: 0.85rem; }
-  }
+  /* ===================== RTL FIXES ===================== */
+  [dir="rtl"] .ml-auto { margin-left: 0 !important; margin-right: auto !important; }
 
-  @media (max-width: 600px) {
-    .hero h1 { font-size: 3rem; }
-    .nav-controls { gap: 0.75rem; }
-    .lang-toggle { padding: 0.35rem 0.75rem; font-size: 0.7rem; }
-    .compare-row {
-      grid-template-columns: 1.5fr 0.8fr 0.8fr;
-      gap: 0.5rem;
-    }
-  }
+  /* ===================== ARABIC TEXT TUNING ===================== */
+  [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3 { line-height: 1.35 !important; }
+  [lang="ar"] p { line-height: 1.85; }
+  [lang="ar"] .gradient-text { padding-inline: 4px; }
 
-  /* Form modal styles */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(14, 14, 14, 0.85);
-    backdrop-filter: blur(8px);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-  }
-
-  .modal-overlay.active { display: flex; }
-
-  .modal {
-    background: var(--ivory);
-    max-width: 32rem;
-    width: 100%;
-    padding: 3rem 2.5rem;
-    position: relative;
-    border: 1px solid var(--gray-line);
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: none;
+  /* ===================== INPUT (waitlist) ===================== */
+  .waitlist-input {
+    flex: 1;
+    background: transparent;
     border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--ink);
-    width: 2rem;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    outline: none;
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
   }
+  .waitlist-input::placeholder { color: var(--text-muted); }
 
-  body[dir="ltr"] .modal-close {
-    left: auto;
-    right: 1rem;
-  }
-
-  .modal h3 {
-    font-family: 'Tajawal', sans-serif;
-    font-weight: 900;
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em;
-  }
-
-  body[dir="ltr"] .modal h3 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-  }
-
-  .modal p {
-    color: var(--ink-soft);
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
-
-  .modal a.form-link {
-    display: block;
-    background: var(--ink);
-    color: var(--ivory);
-    text-align: center;
-    padding: 1rem;
-    text-decoration: none;
-    font-weight: 500;
-    margin-bottom: 0.75rem;
-    transition: background 0.3s ease;
-  }
-
-  .modal a.form-link:hover {
-    background: var(--crimson);
-  }
-
-  .modal-note {
-    font-size: 0.85rem;
-    color: var(--gray-mute);
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    text-align: center;
-    margin-top: 1rem;
-  }
+  /* ===================== EMPHASIS (in body copy) ===================== */
+  strong.em-primary { color: var(--text-primary); font-weight: 600; }
 </style>
 </head>
-<body dir="rtl" data-lang="ar">
+<body>
 
-<!-- NAVIGATION -->
-<nav>
-  <a href="#" class="nav-logo" data-ar="حزم" data-en="Hazm">حزم</a>
-  <div class="nav-controls">
-    <button class="lang-toggle" id="langToggle">EN</button>
-    <a href="https://forms.gle/a6w19L9gK3yZdKqK6" target="_blank" rel="noopener" class="nav-cta" data-ar="سجّل اهتمامك" data-en="Join the list">سجّل اهتمامك</a>
+<!-- ============== NAV ============== -->
+<nav class="nav-bg fixed top-0 left-0 right-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5">
+      <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--cyan), var(--cyan-fill-end)); color: var(--cyan-on-fill);">
+        <span class="text-lg">✦</span>
+      </div>
+      <span class="display text-xl font-bold">حزم</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a class="nav-link" data-scroll="problem" data-i18n="nav.problem"></a>
+      <a class="nav-link" data-scroll="how" data-i18n="nav.how"></a>
+      <a class="nav-link" data-scroll="ramadan" data-i18n="nav.ramadan"></a>
+      <a class="nav-link" data-scroll="who" data-i18n="nav.who"></a>
+      <a class="nav-link" data-scroll="faq" data-i18n="nav.faq"></a>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="toggle-btn theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+        <span class="icon-sun">☀</span>
+        <span class="icon-moon">☾</span>
+      </button>
+      <button class="toggle-btn lang-toggle" id="langToggle" aria-label="Toggle language">
+        <span data-lang-label="ar">ع</span>
+        <span style="opacity: 0.4;">|</span>
+        <span data-lang-label="en">EN</span>
+      </button>
+      <a class="btn-primary hidden sm:inline-flex" href="#" data-form-link target="_blank" rel="noopener" style="padding: 10px 20px; font-size: 13px;" data-i18n="nav.cta"></a>
+    </div>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-text">
-    <div class="hero-eyebrow anim-on-load delay-1">
-      <span data-ar="نسخة تجريبية قادمة" data-en="Coming soon · early access">نسخة تجريبية قادمة</span>
-    </div>
-    <h1 class="anim-on-load delay-2">
-      <span data-ar-html="النتائج تأتي" data-en-html="Results follow">النتائج تأتي</span>
-      <em data-ar="بالحسم." data-en="discipline.">بالحسم.</em>
-    </h1>
-    <p class="hero-sub anim-on-load delay-3" data-ar="تطبيق تغذية وتدريب مبني على نموذج أخصائية تغذية حقيقية. يفهم إصابتك، يحترم صيامك، ويعطيك أرقاماً صادقة بدون تجميل." data-en="A nutrition and training app built on a real dietitian's framework. Understands your injuries, respects your fasting, and gives you honest numbers without sugar-coating.">
-      تطبيق تغذية وتدريب مبني على نموذج أخصائية تغذية حقيقية. يفهم إصابتك، يحترم صيامك، ويعطيك أرقاماً صادقة بدون تجميل.
-    </p>
-    <div class="hero-cta-group anim-on-load delay-4">
-      <a href="https://forms.gle/a6w19L9gK3yZdKqK6" target="_blank" rel="noopener" class="btn-primary">
-        <span data-ar="احجز مكانك" data-en="Reserve your spot">احجز مكانك</span>
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-          <path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </a>
-      <span class="hero-meta" data-ar="مجاني · بدون التزام" data-en="Free · no commitment">مجاني · بدون التزام</span>
-    </div>
-  </div>
+<!-- ============== HERO ============== -->
+<header class="relative pt-32 pb-24 overflow-hidden">
+  <div class="aurora"></div>
+  <div class="max-w-7xl mx-auto px-6 relative">
 
-  <div class="hero-art">
-    <div class="typo-stack">
-      <div class="typo-meaning anim-on-load delay-2" data-ar="ح ز م · اسم · صرامة، جدية، قطع التساهل" data-en="ḥazm · noun · firmness, decisiveness, refusal to make excuses">
-        ح ز م · اسم · صرامة، جدية، قطع التساهل
-      </div>
-      <div class="typo-arabic anim-on-load delay-3">حزم</div>
-      <div class="typo-latin anim-on-load delay-4">Hazm</div>
-    </div>
-  </div>
-</section>
+    <div class="grid lg:grid-cols-[1.3fr_1fr] gap-16 items-center">
 
-<!-- PROBLEM SECTION -->
-<section class="problem">
-  <div class="container">
-    <div class="problem-grid">
-      <div class="problem-text reveal">
-        <div class="section-eyebrow" data-ar="المشكلة" data-en="The problem">المشكلة</div>
-        <h2 data-ar="معظم تطبيقات اللياقة لا تفهمك." data-en="Most fitness apps don't understand you.">
-          معظم تطبيقات اللياقة لا تفهمك.
-        </h2>
-        <p data-ar="بتعطيك خطة تدريب لشخص ما عنده إصابة. توصيات أكل لشخص ما بصوم. أرقام كالوريز محسوبة لشخص أمريكي يأكل ٣ وجبات بأوقات ثابتة." data-en="They hand you a training plan written for someone uninjured. Meal recommendations for someone who doesn't fast. Calorie targets calibrated for a 3-meal American eater.">
-          بتعطيك خطة تدريب لشخص ما عنده إصابة. توصيات أكل لشخص ما بصوم. أرقام كالوريز محسوبة لشخص أمريكي يأكل ٣ وجبات بأوقات ثابتة.
-        </p>
-        <p data-ar="ولما تتوقف عن الالتزام، بتلقى التطبيق يقولك «أحسنت! استمر!» — بدل ما يصارحك إنك مش بتتقدم." data-en="And when you fall off, the app pats you on the back with cheerful encouragement — instead of telling you the truth: you're not making progress.">
-          ولما تتوقف عن الالتزام، بتلقى التطبيق يقولك «أحسنت! استمر!» — بدل ما يصارحك إنك مش بتتقدم.
-        </p>
-      </div>
-
-      <div class="problem-stats reveal">
-        <div class="stat-row">
-          <div class="stat-num">٧٣٪</div>
-          <div class="stat-label" data-ar="من مستخدمي تطبيقات اللياقة يتوقفون خلال ٣ أشهر — السبب الأكبر: الخطة ما تناسبهم" data-en="of fitness app users quit within 3 months — biggest reason: the plan doesn't fit them">
-            من مستخدمي تطبيقات اللياقة يتوقفون خلال ٣ أشهر — السبب الأكبر: الخطة ما تناسبهم
-          </div>
+      <div>
+        <div class="reveal reveal-1 mb-6">
+          <span class="pill"><span data-i18n="hero.beta"></span></span>
         </div>
-        <div class="stat-row">
-          <div class="stat-num">٤</div>
-          <div class="stat-label" data-ar="فقط من بين أكبر ٢٠ تطبيق لياقة يدعمون رمضان — وكلهم بميزة سطحية" data-en="of the top 20 fitness apps support Ramadan properly — and only at a surface level">
-            فقط من بين أكبر ٢٠ تطبيق لياقة يدعمون رمضان — وكلهم بميزة سطحية
-          </div>
+
+        <h1 class="display text-5xl md:text-7xl font-bold leading-[1.1] mb-6 reveal reveal-2" data-i18n-html="hero.title"></h1>
+
+        <p class="text-lg leading-relaxed max-w-xl mb-10 reveal reveal-3" style="color: var(--text-secondary)" data-i18n-html="hero.subtitle"></p>
+
+        <div class="flex flex-wrap items-center gap-4 reveal reveal-4 mb-12">
+          <a class="btn-primary" href="#" data-form-link target="_blank" rel="noopener">
+            <span data-i18n="hero.cta1"></span>
+            <span data-i18n="ui.arrow"></span>
+          </a>
+          <a class="btn-secondary" data-scroll="how" data-i18n="hero.cta2"></a>
         </div>
-        <div class="stat-row">
-          <div class="stat-num">٠</div>
-          <div class="stat-label" data-ar="تطبيق يبني خطة تدريبك تلقائياً بناءً على إصابتك المحددة" data-en="apps that build your training plan automatically based on your specific injury">
-            تطبيق يبني خطة تدريبك تلقائياً بناءً على إصابتك المحددة
+
+        <div class="grid grid-cols-2 gap-6 max-w-lg reveal reveal-4 pt-8 border-t" style="border-color: var(--border)">
+          <div>
+            <div class="stat-num" style="color: var(--purple)">540M</div>
+            <div class="stat-label" data-i18n="hero.stat2"></div>
+          </div>
+          <div>
+            <div class="stat-num" style="color: var(--green)">21</div>
+            <div class="stat-label" data-i18n="hero.stat3"></div>
           </div>
         </div>
       </div>
+
+      <!-- Floating phone preview -->
+      <div class="relative h-[640px] hidden lg:block reveal reveal-3">
+        <div class="phone absolute float-delay" style="top: 40px; right: 40px; transform: rotate(6deg); opacity: 0.85;">
+          <div class="notch"></div>
+          <div class="phone-screen px-4 pt-10" style="background: linear-gradient(180deg, #0d0a1a 0%, #0d1117 60%);">
+            <div class="text-[9px] tracking-widest mb-2" style="color: #ce93d8;">🌙 RAMADAN · DAY 7</div>
+            <div class="display text-base font-bold mb-3" style="font-family: 'Space Grotesk', sans-serif;">Until iftar</div>
+            <div class="flex justify-center mb-3">
+              <svg width="140" height="140" viewBox="0 0 160 160">
+                <circle fill="none" stroke="#161b22" stroke-width="14" cx="80" cy="80" r="65"></circle>
+                <circle fill="none" stroke="#ce93d8" stroke-width="14" stroke-linecap="round" stroke-dasharray="408" stroke-dashoffset="280" cx="80" cy="80" r="65" transform="rotate(-90 80 80)"></circle>
+                <text x="80" y="76" text-anchor="middle" fill="#e6edf3" font-family="Space Grotesk" font-size="22" font-weight="700">6:42 PM</text>
+                <text x="80" y="94" text-anchor="middle" fill="#ce93d8" font-family="Inter" font-size="9">🌅 maghrib</text>
+              </svg>
+            </div>
+            <div class="mini-card mini-card-purple text-[10px]" style="color: #ce93d8; font-family: 'Inter', sans-serif;">
+              💧 Hydration paused · resumes at maghrib
+            </div>
+          </div>
+        </div>
+
+        <div class="phone absolute float" style="top: 0; left: 0;">
+          <div class="notch"></div>
+          <div class="phone-screen px-4 pt-10">
+            <div class="text-[9px] tracking-widest" style="color: #8b949e; font-family: 'Space Grotesk', sans-serif;">MONDAY · APR 27</div>
+            <div class="display text-base font-bold mt-1 mb-3" style="font-family: 'Space Grotesk', sans-serif;">Hi, Sami 👋</div>
+
+            <div class="mini-card mb-3">
+              <div class="text-[9px] tracking-widest mb-1" style="color: #4fc3f7; font-family: 'Space Grotesk', sans-serif;">⏱ FASTING · 16:8</div>
+              <div class="flex justify-center">
+                <svg width="130" height="130" viewBox="0 0 160 160">
+                  <circle fill="none" stroke="#0d1117" stroke-width="14" cx="80" cy="80" r="65"></circle>
+                  <circle fill="none" stroke="#4fc3f7" stroke-width="14" stroke-linecap="round" stroke-dasharray="408" stroke-dashoffset="120" cx="80" cy="80" r="65" transform="rotate(-90 80 80)" class="ring-anim"></circle>
+                  <text x="80" y="76" text-anchor="middle" fill="#e6edf3" font-family="Space Grotesk" font-size="26" font-weight="700">12:34</text>
+                  <text x="80" y="94" text-anchor="middle" fill="#8b949e" font-family="Inter" font-size="9">of 16:00 fast</text>
+                </svg>
+              </div>
+            </div>
+
+            <div class="mini-card mini-card-cyan mb-2 flex items-center gap-2" style="font-family: 'Inter', sans-serif;">
+              <span style="color: #4fc3f7;">✓</span>
+              <span class="text-[10px]" style="color: #4fc3f7;">Push Day · 45 min</span>
+              <span class="ml-auto text-[9px]" style="color: #ce93d8;">Full Gym</span>
+            </div>
+            <div class="mini-card flex items-center gap-2" style="font-family: 'Inter', sans-serif;">
+              <span class="w-3 h-3 rounded-full" style="background: #0d1117; border: 1px solid #30363d;"></span>
+              <span class="text-[10px]">Lunch · 1:00 PM</span>
+              <span class="ml-auto text-[9px]" style="color: #6e7681;">540 kcal</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute -inset-10 -z-10" style="background: radial-gradient(circle, var(--cyan-glow-soft), transparent 70%); filter: blur(40px);"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============== MARQUEE ============== -->
+<section class="py-8 border-y" style="border-color: var(--border); background: var(--strip-bg);">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-4">
+      <span class="text-xs tracking-widest" style="color: var(--text-muted)" data-i18n="marquee.label"></span>
+    </div>
+    <div class="tag-strip">
+      <div class="tag-strip-inner" id="tagStrip"></div>
     </div>
   </div>
 </section>
 
-<!-- DIFFERENCE SECTION -->
-<section class="difference">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow" data-ar="الفرق" data-en="The difference">الفرق</div>
-      <h2 class="section-title" data-ar="حزم مبني على أربع ركائز ما تجتمع بأي تطبيق ثاني." data-en="Hazm is built on four pillars no other app combines.">
-        حزم مبني على أربع ركائز ما تجتمع بأي تطبيق ثاني.
-      </h2>
+<!-- ============== PROBLEM ============== -->
+<section id="problem" class="py-32 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-3xl mb-16 scroll-reveal">
+      <span class="section-tag mb-6 block" data-i18n="problem.tag"></span>
+      <h2 class="display text-4xl md:text-5xl font-bold leading-tight mb-6" data-i18n-html="problem.title"></h2>
+      <p class="text-lg leading-relaxed" style="color: var(--text-secondary)" data-i18n="problem.body"></p>
     </div>
 
-    <div class="pillars">
-      <div class="pillar reveal">
-        <div class="pillar-num">٠١</div>
-        <h3 data-ar="نموذج أخصائية تغذية حقيقية" data-en="A real dietitian's framework">نموذج أخصائية تغذية حقيقية</h3>
-        <p data-ar="مش قاعدة بيانات عشوائية ولا اقتراحات AI سطحية. حزم مبني على نموذج تغذية فعلي طُبّق على آلاف المتدربين، بنية وجبات واضحة وقابلة للتبديل بحسب تفضيلاتك." data-en="Not a random food database or shallow AI suggestions. Hazm is built on an actual nutritional methodology applied to thousands of clients — clear meal categories with substitutions matching your preferences.">
-          مش قاعدة بيانات عشوائية ولا اقتراحات AI سطحية. حزم مبني على نموذج تغذية فعلي طُبّق على آلاف المتدربين، بنية وجبات واضحة وقابلة للتبديل بحسب تفضيلاتك.
-        </p>
-      </div>
-
-      <div class="pillar reveal">
-        <div class="pillar-num">٠٢</div>
-        <h3 data-ar="فلترة تلقائية للإصابات" data-en="Automatic injury filtering">فلترة تلقائية للإصابات</h3>
-        <p data-ar="إصابة بأسفل الظهر؟ ركبة؟ فتق غير مشخّص؟ حزم يحذف التمارين الخطرة من خطتك تلقائياً، ويبني برنامج بديل آمن بنفس النتائج. بدون ما تفكر، بدون ما تخطئ." data-en="Lower back? Knee? Undiagnosed hernia? Hazm automatically removes dangerous exercises from your plan and builds a safe alternative program with the same outcomes. No thinking required.">
-          إصابة بأسفل الظهر؟ ركبة؟ فتق غير مشخّص؟ حزم يحذف التمارين الخطرة من خطتك تلقائياً، ويبني برنامج بديل آمن بنفس النتائج. بدون ما تفكر، بدون ما تخطئ.
-        </p>
-      </div>
-
-      <div class="pillar reveal">
-        <div class="pillar-num">٠٣</div>
-        <h3 data-ar="فهم كامل للصيام الإسلامي" data-en="Full Islamic fasting integration">فهم كامل للصيام الإسلامي</h3>
-        <p data-ar="رمضان، صيام السنة (الإثنين والخميس)، الصيام المختلط — حزم يعيد توزيع وجباتك حسب أوقات المغرب والفجر. مش مجرد فلتر «حلال». الصيام جزء من بنية التطبيق نفسه." data-en="Ramadan, Sunnah fasts (Mondays and Thursdays), mixed fasting patterns — Hazm redistributes your meals around Maghrib and Fajr times. Not a 'halal filter'. Fasting is built into the app's core.">
-          رمضان، صيام السنة (الإثنين والخميس)، الصيام المختلط — حزم يعيد توزيع وجباتك حسب أوقات المغرب والفجر. مش مجرد فلتر «حلال». الصيام جزء من بنية التطبيق نفسه.
-        </p>
-      </div>
-
-      <div class="pillar reveal">
-        <div class="pillar-num">٠٤</div>
-        <h3 data-ar="عربي أصيل، مش مترجم" data-en="Native Arabic, not translated">عربي أصيل، مش مترجم</h3>
-        <p data-ar="مصمم من الصفر للقراءة من اليمين لليسار. خطوط عربية مدروسة. أرقام تختار شكلها (عربية أو هندية). ما تحس إنك تستخدم ترجمة من تطبيق إنجليزي." data-en="Designed from scratch for right-to-left reading. Carefully chosen Arabic typography. Numbers in your preferred form (Arabic or Hindi). Doesn't feel like a translation of an English app.">
-          مصمم من الصفر للقراءة من اليمين لليسار. خطوط عربية مدروسة. أرقام تختار شكلها (عربية أو هندية). ما تحس إنك تستخدم ترجمة من تطبيق إنجليزي.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COMPARISON -->
-<section class="comparison">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow" data-ar="المقارنة" data-en="Comparison">المقارنة</div>
-      <h2 class="section-title" data-ar="ليش حزم؟ بالأرقام." data-en="Why Hazm? In one table.">
-        ليش حزم؟ بالأرقام.
-      </h2>
-    </div>
-
-    <div class="compare-table reveal">
-      <div class="compare-row">
-        <div data-ar="الميزة" data-en="Feature">الميزة</div>
-        <div data-ar="تطبيقات شائعة" data-en="Popular apps">تطبيقات شائعة</div>
-        <div>Hazm</div>
+    <div class="card overflow-hidden scroll-reveal">
+      <div class="compare-row compare-head">
+        <div data-i18n="problem.col1"></div>
+        <div data-i18n="problem.col2"></div>
+        <div style="color: var(--cyan)" data-i18n="problem.col3"></div>
       </div>
       <div class="compare-row">
-        <div class="compare-feature" data-ar="فلترة تلقائية للإصابات" data-en="Automatic injury filtering">فلترة تلقائية للإصابات</div>
-        <div class="compare-cell compare-no" data-ar="—" data-en="—">—</div>
-        <div class="compare-cell compare-yes" data-ar="مدمج" data-en="built-in">مدمج</div>
+        <div class="display font-semibold" data-i18n="problem.row1.title"></div>
+        <div style="color: var(--text-secondary)" data-i18n="problem.row1.them"></div>
+        <div data-i18n="problem.row1.us"></div>
       </div>
       <div class="compare-row">
-        <div class="compare-feature" data-ar="إعادة توزيع وجبات رمضان" data-en="Ramadan meal redistribution">إعادة توزيع وجبات رمضان</div>
-        <div class="compare-cell compare-no" data-ar="فلتر حلال فقط" data-en="halal filter only">فلتر حلال فقط</div>
-        <div class="compare-cell compare-yes" data-ar="بناءً على وقت أذانك" data-en="based on your local prayer times">بناءً على وقت أذانك</div>
+        <div class="display font-semibold" data-i18n="problem.row2.title"></div>
+        <div style="color: var(--text-secondary)" data-i18n="problem.row2.them"></div>
+        <div data-i18n="problem.row2.us"></div>
       </div>
       <div class="compare-row">
-        <div class="compare-feature" data-ar="نموذج أخصائية تغذية" data-en="Dietitian methodology">نموذج أخصائية تغذية</div>
-        <div class="compare-cell compare-no" data-ar="عام / AI" data-en="generic / AI">عام / AI</div>
-        <div class="compare-cell compare-yes" data-ar="مبني على نموذج فعلي" data-en="actual practice-based">مبني على نموذج فعلي</div>
+        <div class="display font-semibold" data-i18n="problem.row3.title"></div>
+        <div style="color: var(--text-secondary)" data-i18n="problem.row3.them"></div>
+        <div data-i18n="problem.row3.us"></div>
       </div>
       <div class="compare-row">
-        <div class="compare-feature" data-ar="أرقام صادقة بدون تشجيع زائف" data-en="Honest numbers, no fake encouragement">أرقام صادقة بدون تشجيع زائف</div>
-        <div class="compare-cell compare-no" data-ar="«أحسنت! استمر!»" data-en="“Great job! Keep going!”">«أحسنت! استمر!»</div>
-        <div class="compare-cell compare-yes" data-ar="حقيقة بلا تجميل" data-en="truth, no sugar-coating">حقيقة بلا تجميل</div>
+        <div class="display font-semibold" data-i18n="problem.row4.title"></div>
+        <div style="color: var(--text-secondary)" data-i18n="problem.row4.them"></div>
+        <div data-i18n="problem.row4.us"></div>
       </div>
       <div class="compare-row">
-        <div class="compare-feature" data-ar="عربية أصيلة (RTL)" data-en="Native Arabic (RTL)">عربية أصيلة (RTL)</div>
-        <div class="compare-cell compare-no" data-ar="ترجمة" data-en="translated">ترجمة</div>
-        <div class="compare-cell compare-yes" data-ar="مصمم بالعربية" data-en="designed in Arabic first">مصمم بالعربية</div>
+        <div class="display font-semibold" data-i18n="problem.row5.title"></div>
+        <div style="color: var(--text-secondary)" data-i18n="problem.row5.them"></div>
+        <div data-i18n="problem.row5.us"></div>
+      </div>
+      <div class="compare-row">
+        <div class="display font-semibold" data-i18n="problem.row6.title"></div>
+        <div style="color: var(--text-secondary)" data-i18n="problem.row6.them"></div>
+        <div data-i18n="problem.row6.us"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PHILOSOPHY -->
-<section class="philosophy">
-  <div class="container">
-    <div class="philosophy-quote reveal">
-      <h2 data-ar='حزم ما يعدك بنتائج خرافية. <strong>يعدك بنظام تقدر تلتزم فيه</strong>، وأرقام صادقة تخبرك إذا فعلاً بتتقدم.' data-en='Hazm doesn’t promise miracle results. <strong>It promises a system you can stick to</strong>, and honest numbers that tell you whether you’re actually progressing.'>
-        حزم ما يعدك بنتائج خرافية. <strong>يعدك بنظام تقدر تلتزم فيه</strong>، وأرقام صادقة تخبرك إذا فعلاً بتتقدم.
-      </h2>
-      <div class="philosophy-attribution" data-ar="— فلسفة التطبيق" data-en="— our principle">— فلسفة التطبيق</div>
+<!-- ============== HOW IT WORKS ============== -->
+<section id="how" class="py-32 relative" style="background: linear-gradient(180deg, transparent, var(--section-tint), transparent);">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="max-w-3xl mb-20 scroll-reveal">
+      <span class="section-tag mb-6 block" data-i18n="how.tag"></span>
+      <h2 class="display text-4xl md:text-5xl font-bold leading-tight mb-6" data-i18n-html="how.title"></h2>
+      <p class="text-lg leading-relaxed" style="color: var(--text-secondary)" data-i18n="how.body"></p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="pillar pillar-cyan scroll-reveal">
+        <div class="pillar-icon">⏱</div>
+        <div class="text-xs mono mb-2" style="color: var(--cyan)" data-i18n="how.engine1.tag"></div>
+        <h3 class="display text-2xl font-bold mb-3" data-i18n="how.engine1.title"></h3>
+        <p class="text-sm leading-relaxed mb-5" style="color: var(--text-secondary)" data-i18n="how.engine1.body"></p>
+        <ul class="space-y-2 text-xs" style="color: var(--text-secondary)">
+          <li class="flex gap-2"><span style="color: var(--cyan)">▸</span> <span data-i18n="how.engine1.b1"></span></li>
+          <li class="flex gap-2"><span style="color: var(--cyan)">▸</span> <span data-i18n="how.engine1.b2"></span></li>
+          <li class="flex gap-2"><span style="color: var(--cyan)">▸</span> <span data-i18n="how.engine1.b3"></span></li>
+        </ul>
+      </div>
+
+      <div class="pillar pillar-purple scroll-reveal">
+        <div class="pillar-icon">🏋️</div>
+        <div class="text-xs mono mb-2" style="color: var(--purple)" data-i18n="how.engine2.tag"></div>
+        <h3 class="display text-2xl font-bold mb-3" data-i18n="how.engine2.title"></h3>
+        <p class="text-sm leading-relaxed mb-5" style="color: var(--text-secondary)" data-i18n="how.engine2.body"></p>
+        <ul class="space-y-2 text-xs" style="color: var(--text-secondary)">
+          <li class="flex gap-2"><span style="color: var(--purple)">▸</span> <span data-i18n="how.engine2.b1"></span></li>
+          <li class="flex gap-2"><span style="color: var(--purple)">▸</span> <span data-i18n="how.engine2.b2"></span></li>
+          <li class="flex gap-2"><span style="color: var(--purple)">▸</span> <span data-i18n="how.engine2.b3"></span></li>
+        </ul>
+      </div>
+
+      <div class="pillar pillar-green scroll-reveal">
+        <div class="pillar-icon">🌱</div>
+        <div class="text-xs mono mb-2" style="color: var(--green)" data-i18n="how.engine3.tag"></div>
+        <h3 class="display text-2xl font-bold mb-3" data-i18n="how.engine3.title"></h3>
+        <p class="text-sm leading-relaxed mb-5" style="color: var(--text-secondary)" data-i18n="how.engine3.body"></p>
+        <ul class="space-y-2 text-xs" style="color: var(--text-secondary)">
+          <li class="flex gap-2"><span style="color: var(--green)">▸</span> <span data-i18n="how.engine3.b1"></span></li>
+          <li class="flex gap-2"><span style="color: var(--green)">▸</span> <span data-i18n="how.engine3.b2"></span></li>
+          <li class="flex gap-2"><span style="color: var(--green)">▸</span> <span data-i18n="how.engine3.b3"></span></li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta" id="cta">
-  <div class="cta-content">
-    <h2 class="reveal" data-ar="كن أول من يجرّب حزم." data-en="Be among the first to try Hazm.">
-      كن أول من يجرّب حزم.
-    </h2>
-    <p class="reveal" data-ar="نطلق نسخة تجريبية مغلقة قريباً. سجّل اهتمامك الآن وستحصل على وصول مبكر وخصم دائم على أي اشتراك مستقبلي." data-en="We're launching a closed beta soon. Register your interest now to get early access and a permanent discount on any future subscription.">
-      نطلق نسخة تجريبية مغلقة قريباً. سجّل اهتمامك الآن وستحصل على وصول مبكر وخصم دائم على أي اشتراك مستقبلي.
-    </p>
-    <a href="https://forms.gle/a6w19L9gK3yZdKqK6" target="_blank" rel="noopener" class="btn-primary-light reveal" id="openModal">
-      <span data-ar="احجز مكانك بالنسخة التجريبية" data-en="Reserve your beta spot">احجز مكانك بالنسخة التجريبية</span>
-      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-        <path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </a>
-    <div class="cta-meta reveal" data-ar="بدون التزام · لا نرسل سبام · إيميل واحد عند الإطلاق فقط" data-en="No commitment · no spam · one email at launch only">
-      بدون التزام · لا نرسل سبام · إيميل واحد عند الإطلاق فقط
+<!-- ============== RAMADAN ============== -->
+<section id="ramadan" class="py-32 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <div class="scroll-reveal">
+        <span class="section-tag mb-6 block" style="color: var(--purple);" data-i18n="ramadan.tag"></span>
+        <h2 class="display text-4xl md:text-5xl font-bold leading-tight mb-6" data-i18n-html="ramadan.title"></h2>
+        <p class="text-lg leading-relaxed mb-8" style="color: var(--text-secondary)" data-i18n="ramadan.body"></p>
+
+        <div class="space-y-4 mb-10">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--purple-dim); border: 1px solid var(--purple);">🕒</div>
+            <div>
+              <div class="display font-bold mb-1" data-i18n="ramadan.f1.title"></div>
+              <div class="text-sm" style="color: var(--text-secondary)" data-i18n="ramadan.f1.body"></div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--cyan-dim); border: 1px solid var(--cyan);">💧</div>
+            <div>
+              <div class="display font-bold mb-1" data-i18n="ramadan.f2.title"></div>
+              <div class="text-sm" style="color: var(--text-secondary)" data-i18n="ramadan.f2.body"></div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background: var(--gold-dim); border: 1px solid var(--gold);">🏋️</div>
+            <div>
+              <div class="display font-bold mb-1" data-i18n="ramadan.f3.title"></div>
+              <div class="text-sm" style="color: var(--text-secondary)" data-i18n="ramadan.f3.body"></div>
+            </div>
+          </div>
+        </div>
+
+        <a class="btn-primary" href="#" data-form-link target="_blank" rel="noopener" style="background: var(--purple); color: var(--purple-on-fill);"><span data-i18n="ramadan.cta"></span> <span data-i18n="ui.arrow"></span></a>
+      </div>
+
+      <div class="scroll-reveal">
+        <div class="card p-7" style="background: linear-gradient(180deg, var(--purple-tint-bg), var(--quote-bg));">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <div class="text-xs tracking-widest" style="color: var(--purple)" data-i18n="ramadan.sched.day"></div>
+              <div class="display text-xl font-bold mt-1" data-i18n="ramadan.sched.title"></div>
+            </div>
+            <span class="pill" style="color: var(--purple); border-color: var(--purple); background: var(--purple-dim);" data-i18n="ramadan.sched.eta"></span>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex items-start gap-4 p-3 rounded-xl" style="background: var(--green-dim); border: 1px solid var(--green);">
+              <div class="mono text-xs w-14 pt-1" style="color: var(--text-muted)">4:14 AM</div>
+              <div class="flex-1">
+                <div class="display text-sm font-bold flex items-center gap-2 flex-wrap"><span data-i18n="ramadan.sched.suhoor"></span> <span class="pill" style="color: var(--green); border-color: var(--green); background: var(--green-dim); font-size: 9px;" data-i18n="ramadan.sched.tag1"></span></div>
+                <div class="text-xs mt-0.5" style="color: var(--text-secondary)" data-i18n="ramadan.sched.suhoor.body"></div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4 p-3 opacity-60">
+              <div class="mono text-xs w-14" style="color: var(--text-muted)">8AM-5PM</div>
+              <div class="flex-1 text-xs italic" style="color: var(--text-muted)" data-i18n="ramadan.sched.quiet"></div>
+            </div>
+
+            <div class="flex items-start gap-4 p-3 rounded-xl" style="background: var(--cyan-dim); border: 1px solid var(--cyan);">
+              <div class="mono text-xs w-14 pt-1" style="color: var(--text-muted)">5:30 PM</div>
+              <div class="flex-1">
+                <div class="display text-sm font-bold flex items-center gap-2 flex-wrap"><span data-i18n="ramadan.sched.workout"></span> <span class="pill" style="color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); font-size: 9px;" data-i18n="ramadan.sched.tag2"></span></div>
+                <div class="text-xs mt-0.5" style="color: var(--text-secondary)" data-i18n="ramadan.sched.workout.body"></div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-3 rounded-xl" style="background: var(--gold-dim); border: 1px solid var(--gold);">
+              <div class="mono text-xs w-14 pt-1" style="color: var(--gold)">6:42 PM</div>
+              <div class="flex-1">
+                <div class="display text-sm font-bold" style="color: var(--gold)" data-i18n="ramadan.sched.iftar"></div>
+                <div class="text-xs mt-0.5" style="color: var(--text-secondary)" data-i18n="ramadan.sched.iftar.body"></div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-3 rounded-xl pulse" style="background: var(--cyan-dim); border: 1px solid var(--cyan);">
+              <div class="mono text-xs w-14 pt-1" style="color: var(--cyan)">8:00 PM</div>
+              <div class="flex-1">
+                <div class="display text-sm font-bold" style="color: var(--cyan)" data-i18n="ramadan.sched.water"></div>
+                <div class="text-xs mt-0.5" style="color: var(--text-secondary)" data-i18n="ramadan.sched.water.body"></div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-3 rounded-xl" style="background: var(--purple-dim); border: 1px solid var(--purple);">
+              <div class="mono text-xs w-14 pt-1" style="color: var(--text-muted)">9:30 PM</div>
+              <div class="flex-1">
+                <div class="display text-sm font-bold" data-i18n="ramadan.sched.snack"></div>
+                <div class="text-xs mt-0.5" style="color: var(--text-secondary)" data-i18n="ramadan.sched.snack.body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ============== WHO IT'S FOR ============== -->
+<section id="who" class="py-32" style="background: linear-gradient(180deg, transparent, var(--section-tint), transparent);">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="max-w-3xl mb-16 scroll-reveal">
+      <span class="section-tag mb-6 block" data-i18n="who.tag"></span>
+      <h2 class="display text-4xl md:text-5xl font-bold leading-tight mb-6" data-i18n="who.title"></h2>
+      <p class="text-lg leading-relaxed" style="color: var(--text-secondary)" data-i18n="who.body"></p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 scroll-reveal">
+      <div class="card p-6">
+        <div class="text-3xl mb-3">🩺</div>
+        <h3 class="display font-bold mb-2" data-i18n="who.p1.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="who.p1.body"></p>
+      </div>
+      <div class="card p-6">
+        <div class="text-3xl mb-3">🌙</div>
+        <h3 class="display font-bold mb-2" data-i18n="who.p2.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="who.p2.body"></p>
+      </div>
+      <div class="card p-6">
+        <div class="text-3xl mb-3">✈️</div>
+        <h3 class="display font-bold mb-2" data-i18n="who.p3.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="who.p3.body"></p>
+      </div>
+      <div class="card p-6">
+        <div class="text-3xl mb-3">🍽</div>
+        <h3 class="display font-bold mb-2" data-i18n="who.p4.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="who.p4.body"></p>
+      </div>
+    </div>
+
+    <div class="quote-card mt-16 max-w-3xl mx-auto scroll-reveal">
+      <div class="display text-xl md:text-2xl font-bold leading-relaxed mb-5" data-i18n-html="who.quote"></div>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: var(--purple-dim); border: 1px solid var(--purple); color: var(--purple);">س</div>
+        <div>
+          <div class="display font-bold text-sm" data-i18n="who.quote.name"></div>
+          <div class="text-xs" style="color: var(--text-secondary)" data-i18n="who.quote.role"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== JOURNEY ============== -->
+<section class="py-32">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-3xl mb-16 scroll-reveal">
+      <span class="section-tag mb-6 block" data-i18n="journey.tag"></span>
+      <h2 class="display text-4xl md:text-5xl font-bold leading-tight mb-6" data-i18n="journey.title"></h2>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-4 scroll-reveal">
+      <div class="card p-6">
+        <div class="text-xs mono mb-3" style="color: var(--cyan)">STEP 01</div>
+        <div class="text-3xl mb-3">👤</div>
+        <h3 class="display font-bold mb-2" data-i18n="journey.s1.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="journey.s1.body"></p>
+      </div>
+      <div class="card p-6">
+        <div class="text-xs mono mb-3" style="color: var(--cyan)">STEP 02</div>
+        <div class="text-3xl mb-3">🎯</div>
+        <h3 class="display font-bold mb-2" data-i18n="journey.s2.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="journey.s2.body"></p>
+      </div>
+      <div class="card p-6">
+        <div class="text-xs mono mb-3" style="color: var(--cyan)">STEP 03</div>
+        <div class="text-3xl mb-3">⏱</div>
+        <h3 class="display font-bold mb-2" data-i18n="journey.s3.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="journey.s3.body"></p>
+      </div>
+      <div class="card p-6">
+        <div class="text-xs mono mb-3" style="color: var(--cyan)">STEP 04</div>
+        <div class="text-3xl mb-3">🏋️</div>
+        <h3 class="display font-bold mb-2" data-i18n="journey.s4.title"></h3>
+        <p class="text-sm" style="color: var(--text-secondary)" data-i18n="journey.s4.body"></p>
+      </div>
+    </div>
+
+    <div class="text-center mt-12 scroll-reveal">
+      <a href="#" class="btn-secondary"><span data-i18n="journey.cta"></span> <span data-i18n="ui.arrow"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FAQ ============== -->
+<section id="faq" class="py-32" style="background: linear-gradient(180deg, transparent, var(--section-tint));">
+  <div class="max-w-3xl mx-auto px-6">
+    <span class="section-tag mb-6 block scroll-reveal" data-i18n="faq.tag"></span>
+    <h2 class="display text-4xl md:text-5xl font-bold leading-tight mb-12 scroll-reveal" data-i18n="faq.title"></h2>
+
+    <div class="scroll-reveal">
+      <details class="faq" open>
+        <summary><span data-i18n="faq.q1"></span></summary>
+        <p data-i18n="faq.a1"></p>
+      </details>
+      <details class="faq">
+        <summary><span data-i18n="faq.q2"></span></summary>
+        <p data-i18n="faq.a2"></p>
+      </details>
+      <details class="faq">
+        <summary><span data-i18n="faq.q3"></span></summary>
+        <p data-i18n="faq.a3"></p>
+      </details>
+      <details class="faq">
+        <summary><span data-i18n="faq.q4"></span></summary>
+        <p data-i18n="faq.a4"></p>
+      </details>
+      <details class="faq">
+        <summary><span data-i18n="faq.q5"></span></summary>
+        <p data-i18n="faq.a5"></p>
+      </details>
+      <details class="faq">
+        <summary><span data-i18n="faq.q6"></span></summary>
+        <p data-i18n="faq.a6"></p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WAITLIST ============== -->
+<section id="waitlist" class="py-32 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 800px 400px at 50% 50%, var(--cyan-glow-soft), transparent 60%);"></div>
+
+  <div class="max-w-3xl mx-auto px-6 text-center relative scroll-reveal">
+    <div class="w-20 h-20 rounded-3xl mx-auto mb-8 flex items-center justify-center pulse" style="background: linear-gradient(135deg, var(--cyan), var(--cyan-fill-end)); color: var(--cyan-on-fill);">
+      <span class="text-4xl">✦</span>
+    </div>
+    <h2 class="display text-4xl md:text-6xl font-bold leading-tight mb-6" data-i18n-html="waitlist.title"></h2>
+    <p class="text-lg leading-relaxed mb-10 max-w-xl mx-auto" style="color: var(--text-secondary)" data-i18n="waitlist.body"></p>
+
+    <div class="max-w-md mx-auto">
+      <a class="btn-primary" href="#" data-form-link target="_blank" rel="noopener" style="padding: 16px 40px; font-size: 17px;"><span data-i18n="waitlist.submit"></span> <span data-i18n="ui.arrow"></span></a>
+    </div>
+    <div class="text-xs mt-4" style="color: var(--text-muted)" data-i18n="waitlist.note"></div>
+
+    <div class="flex items-center justify-center gap-6 mt-12 flex-wrap">
+      <div class="flex items-center gap-2 text-xs" style="color: var(--text-secondary)">
+        <span style="color: var(--green)">✓</span> <span data-i18n="waitlist.t1"></span>
+      </div>
+      <div class="flex items-center gap-2 text-xs" style="color: var(--text-secondary)">
+        <span style="color: var(--green)">✓</span> <span data-i18n="waitlist.t2"></span>
+      </div>
+      <div class="flex items-center gap-2 text-xs" style="color: var(--text-secondary)">
+        <span style="color: var(--green)">✓</span> <span data-i18n="waitlist.t3"></span>
+      </div>
+      <div class="flex items-center gap-2 text-xs" style="color: var(--text-secondary)">
+        <span style="color: var(--green)">✓</span> <span data-i18n="waitlist.t4"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
 <footer>
-  <div class="footer-content">
-    <div class="footer-logo" data-ar="حزم" data-en="Hazm">حزم</div>
-    <div class="footer-meta" data-ar="© ٢٠٢٦ حزم. كل الحقوق محفوظة." data-en="© 2026 Hazm. All rights reserved.">
-      © ٢٠٢٦ حزم. كل الحقوق محفوظة.
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12 mb-12">
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, var(--cyan), var(--cyan-fill-end)); color: var(--cyan-on-fill);">
+            <span class="text-lg">✦</span>
+          </div>
+          <span class="display text-xl font-bold">حزم</span>
+        </div>
+        <p class="text-sm leading-relaxed max-w-xs mb-4" style="color: var(--text-secondary)" data-i18n-html="footer.tagline"></p>
+        <div class="text-xs mono" style="color: var(--text-muted)">v0.1 · Haifa · 2026</div>
+      </div>
+
+      <div>
+        <div class="display font-bold text-sm mb-4" data-i18n="footer.col1"></div>
+        <ul class="space-y-2 text-sm">
+          <li><a class="nav-link" data-scroll="how" data-i18n="nav.how"></a></li>
+          <li><a class="nav-link" data-scroll="ramadan" data-i18n="nav.ramadan"></a></li>
+          <li><a class="nav-link" data-scroll="who" data-i18n="nav.who"></a></li>
+          <li><a class="nav-link" data-scroll="faq" data-i18n="nav.faq"></a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="display font-bold text-sm mb-4" data-i18n="footer.col2"></div>
+        <ul class="space-y-2 text-sm">
+          <li><a class="nav-link" data-i18n="footer.about"></a></li>
+          <li><a class="nav-link" data-i18n="footer.blog"></a></li>
+          <li><a class="nav-link" data-i18n="footer.press"></a></li>
+          <li><a class="nav-link" data-i18n="footer.careers"></a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="display font-bold text-sm mb-4" data-i18n="footer.col3"></div>
+        <ul class="space-y-2 text-sm">
+          <li><a class="nav-link">Twitter / X</a></li>
+          <li><a class="nav-link">Instagram</a></li>
+          <li><a class="nav-link">TikTok</a></li>
+          <li><a class="nav-link">hello@hzm.app</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t flex flex-col md:flex-row justify-between gap-4 text-xs" style="border-color: var(--border); color: var(--text-muted);">
+      <div data-i18n="footer.legal"></div>
+      <div class="flex gap-6">
+        <a class="nav-link" data-i18n="footer.privacy"></a>
+        <a class="nav-link" data-i18n="footer.terms"></a>
+        <a class="nav-link" data-i18n="footer.cookies"></a>
+      </div>
     </div>
   </div>
 </footer>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <button class="modal-close" id="closeModal">×</button>
-    <h3 data-ar="نوصلك للنموذج" data-en="One quick step">نوصلك للنموذج</h3>
-    <p data-ar="عبّي النموذج التالي بإيميلك وبضع أسئلة سريعة. ٣٠ ثانية فقط، وتساعدنا نبني حزم بشكل أحسن." data-en="Fill the form below with your email and a few quick questions. 30 seconds total, and it helps us build Hazm better.">
-      عبّي النموذج التالي بإيميلك وبضع أسئلة سريعة. ٣٠ ثانية فقط، وتساعدنا نبني حزم بشكل أحسن.
-    </p>
-    <a href="#" class="form-link" id="formLink" target="_blank" rel="noopener">
-      <span data-ar="افتح نموذج التسجيل ←" data-en="Open registration form →">افتح نموذج التسجيل ←</span>
-    </a>
-    <p class="modal-note" data-ar="بيفتح نموذج Google Forms ببرنامج جديد" data-en="Opens Google Forms in a new tab">
-      بيفتح نموذج Google Forms ببرنامج جديد
-    </p>
-  </div>
-</div>
-
 <script>
-  // === LANGUAGE TOGGLE ===
-  const langToggle = document.getElementById('langToggle');
-  const body = document.body;
+// ============== I18N DICTIONARY ==============
+const i18n = {
+  ar: {
+    'ui.arrow': '←',
 
-  function setLang(lang) {
-    body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-    body.setAttribute('data-lang', lang);
-    body.setAttribute('lang', lang);
-    langToggle.textContent = lang === 'ar' ? 'EN' : 'AR';
+    'nav.problem': 'المشكلة',
+    'nav.how': 'كيف يعمل',
+    'nav.ramadan': 'وضع رمضان',
+    'nav.who': 'لمن هو',
+    'nav.faq': 'الأسئلة',
+    'nav.cta': 'انضم للقائمة ←',
 
-    document.querySelectorAll('[data-ar]').forEach(el => {
-      const text = el.getAttribute(`data-${lang}`);
-      if (text) el.textContent = text;
-    });
+    'hero.beta': '✦ متاح الآن في النسخة التجريبية الخاصة',
+    'hero.title': 'صم، تدرّب،<br/>و<span class="gradient-text">احزم أمرك</span> —<br/>حتى عندما تتغيّر القواعد.',
+    'hero.subtitle': '«حزم» هو أوّل مرافق لياقة يتعامل مع <strong class="em-primary">رمضان</strong> و<strong class="em-primary">الصيام الجاف</strong> وتبديل الأدوات والعودة بعد الإصابة بوصفها ميزات أساسية، لا حالات استثنائية. خطّة واحدة متكيّفة للجسم الذي تعيش فيه فعلًا.',
+    'hero.cta1': 'انضم لقائمة الانتظار',
+    'hero.cta2': 'شاهد كيف يعمل',
+    'hero.stat1': 'تطبيق لياقة في السوق — ولا واحد مبني لرمضان',
+    'hero.stat2': 'مستخدم لتطبيقات اللياقة — بدون وضع صيام جاف',
+    'hero.stat3': 'يومًا حلقة تكيّف تُعيد ضبط خطّتك بهدوء',
 
-    document.querySelectorAll('[data-ar-html]').forEach(el => {
-      const html = el.getAttribute(`data-${lang}-html`);
-      if (html) el.innerHTML = html;
-    });
+    'marquee.label': 'تطبيق واحد — يحلّ ما يتجاهله غيره',
+    'marquee.tag1': '🌙 وضع <strong>رمضان</strong>',
+    'marquee.tag2': '💧 دعم <strong>الصيام الجاف</strong>',
+    'marquee.tag3': '⏱ بروتوكوالت <strong>16:8 / 5:2</strong>',
+    'marquee.tag4': '🩺 <strong>بروتوكول</strong> ما بعد الإصابة',
+    'marquee.tag5': '🏨 وضع <strong>السفر</strong>',
+    'marquee.tag6': '🌱 بدائل <strong>نباتية</strong>',
+    'marquee.tag7': '📈 <strong>إعادة ضبط</strong> كل 21 يومًا',
+    'marquee.tag8': '🍽 <strong>تبديل وجبات</strong> بنفس السعرات',
 
-    // Handle elements with HTML content
-    document.querySelectorAll('h2[data-ar]').forEach(el => {
-      const text = el.getAttribute(`data-${lang}`);
-      if (text && text.includes('<')) {
-        el.innerHTML = text;
-      }
-    });
+    'problem.tag': '— المشكلة',
+    'problem.title': 'معظم تطبيقات الصيام تفترض النافذة من الظهر للثامنة.<br/><span class="gradient-text-warm">الحياة ليست بهذه البساطة.</span>',
+    'problem.body': 'حين يبدأ رمضان، تنهار الخوارزمية. حين تصوم جافًّا، تحرجك تذكيرات الماء. حين تسافر، يصبح تمرين اليوم غير قابل للتنفيذ. وحين تتخطّى تمرينًا، تشعرك عقوبة «الستريك» بالفشل فتتركه.',
+    'problem.col1': 'الموقف',
+    'problem.col2': 'معظم التطبيقات',
+    'problem.col3': 'حزم',
+    'problem.row1.title': 'يبدأ رمضان',
+    'problem.row1.them': 'نافذة ثابتة 12ظ–8م. عديمة الفائدة.',
+    'problem.row1.us': 'يُعيد بناء يومك حول المغرب والفجر تلقائيًا.',
+    'problem.row2.title': 'صيام جاف',
+    'problem.row2.them': 'يطلب منك شرب الماء. أثناء الصيام نفسه.',
+    'problem.row2.us': 'يوقف تذكيرات الماء، ويجدول ترطيبًا مكثفًا بعد المغرب.',
+    'problem.row3.title': 'سفر بدون صالة',
+    'problem.row3.them': '«تمرين اليوم: بنش بريس بالبار». مثالي.',
+    'problem.row3.us': 'بضغطة واحدة → نسخة وزن الجسم. نفس الحجم، نفس العضلات.',
+    'problem.row4.title': 'العودة بعد إصابة',
+    'problem.row4.them': 'خطّة «مبتدئ» تُعيد إصابتك.',
+    'problem.row4.us': 'بروتوكول ما بعد الإصابة. وزن الجسم أوّلًا، ثم تصاعد آمن.',
+    'problem.row5.title': 'ملل من الوجبات',
+    'problem.row5.them': 'صعب. اشترك في الخطّة التالية.',
+    'problem.row5.us': 'بدائل بنفس السعرات في نفس الشاشة. اضغط واستبدل.',
+    'problem.row6.title': 'تخطّيت تمرينًا',
+    'problem.row6.them': 'ستريك مكسور. إشعار يشعرك بالذنب.',
+    'problem.row6.us': 'يُعيد الجدولة بهدوء. ويقترح راحة إن كنت متعبًا.',
+
+    'how.tag': '— كيف يعمل',
+    'how.title': 'ثلاثة محرّكات.<br/>خطّة واحدة متكيّفة.',
+    'how.body': 'لا يبيعك «حزم» ملفًّا ثابتًا. بل يبني لك نظامًا يراقب ما تفعله، يسألك كيف تشعر، ويُعيد ضبط نفسه بهدوء كلّ ثلاثة أسابيع.',
+    'how.engine1.tag': 'المحرّك 01',
+    'how.engine1.title': 'محرّك الصيام الهجين',
+    'how.engine1.body': 'يقرأ أوقات الشروق والغروب حسب موقعك. يُعيد هيكلة يومك لرمضان أو للصيام الجاف أو لأيّ نافذة مخصّصة — بمنطق تذكيرات ماء يحترم متى يحقّ لك أن تشرب.',
+    'how.engine1.b1': '16:8 · 5:2 · نوافذ مخصّصة',
+    'how.engine1.b2': 'تفعيل تلقائي لرمضان قبل 48 ساعة',
+    'how.engine1.b3': 'عدّاد مزدوج (طعام + ماء)',
+    'how.engine2.tag': 'المحرّك 02',
+    'how.engine2.title': 'تمارين متكيّفة',
+    'how.engine2.body': 'كلّ تمرين له ثلاث نسخ مدمجة: صالة كاملة، صالة منزلية خفيفة، وزن الجسم فقط. ضغطة واحدة تبدّل خطّة اليوم — نفس العضلات، نفس الحجم.',
+    'how.engine2.b1': 'يفهم أدواتك في الوقت الفعلي',
+    'how.engine2.b2': 'بروتوكول تصاعدي بعد الإصابة',
+    'how.engine2.b3': '«متعب اليوم» = راحة، لا فشل',
+    'how.engine3.tag': 'المحرّك 03',
+    'how.engine3.title': 'حلقة التكيّف',
+    'how.engine3.body': 'كلّ 21 يومًا تُجري مراجعة. دقيقتان فقط. يسألك «حزم» كيف تشعر — لا فقط ماذا يقول الميزان — ويُعيد ضبط السعرات والحجم وقائمة الوجبات.',
+    'how.engine3.b1': 'مقاييس ذاتية + موضوعية',
+    'how.engine3.b2': 'بدائل وجبات بنفس السعرات',
+    'how.engine3.b3': 'يحوّل الهدف: تنحيف ← ثبات ← بناء',
+
+    'ramadan.tag': '— ما يميّزنا',
+    'ramadan.title': 'وضع <span class="gradient-text-warm">رمضان</span> حقيقي.<br/>ليس مجرّد خانة.',
+    'ramadan.body': '1.9 مليار شخص يصومون رمضان كلّ عام. لا يوجد تطبيق لياقة تقريبًا يفهمه. «حزم» يقرأ مغرب وفجر منطقتك، يُعيد توزيع الوجبات حول الإفطار والسحور، يجدول التمرين قبل الإفطار أو بعد التراويح، ويُشغّل دورة ترطيب ليلية مكثفة.',
+    'ramadan.f1.title': 'نوافذ أكل متحرّكة',
+    'ramadan.f1.body': 'تتزامن مع المغرب والفجر يوميًا. السحور = كربوهيدرات بطيئة. الإفطار = كسر صيام سريع. ما بعد التراويح = بروتين.',
+    'ramadan.f2.title': 'دورات ترطيب ذكية',
+    'ramadan.f2.body': 'تذكيرات الماء تتوقّف نهارًا. بعد المغرب، دورة مكثّفة تصل بك إلى 2.5 لتر قبل الفجر — دون أن تُجهد معدتك.',
+    'ramadan.f3.title': 'تدريب رمضاني متكيّف',
+    'ramadan.f3.body': 'اختر قبل الإفطار (تنحيف) أو بعد التراويح (قوّة). الحجم يقلّ 20٪ لتفادي الإرهاق وفقد العضل.',
+    'ramadan.cta': 'استعدّ لرمضان',
+    'ramadan.sched.day': '🌙 رمضان · اليوم 7',
+    'ramadan.sched.title': 'جدول اليوم',
+    'ramadan.sched.eta': '8 ساعات للإفطار',
+    'ramadan.sched.suhoor': '🌌 السحور',
+    'ramadan.sched.tag1': 'كربوهيدرات بطيئة',
+    'ramadan.sched.suhoor.body': 'شوفان · زبدة فول سوداني · 3 بيضات',
+    'ramadan.sched.quiet': '— صمت. لا طعام، لا ماء، لا إزعاج. —',
+    'ramadan.sched.workout': '🏋️ تمرين ما قبل الإفطار',
+    'ramadan.sched.tag2': 'حجم −20٪',
+    'ramadan.sched.workout.body': 'يوم دفع · ينتهي مع المغرب',
+    'ramadan.sched.iftar': '🌅 الإفطار',
+    'ramadan.sched.iftar.body': 'تمر · ماء · ثم الوجبة الرئيسية',
+    'ramadan.sched.water': '💧 دورة الترطيب',
+    'ramadan.sched.water.body': 'كوب كل 45 دقيقة · هدف 2.5 لتر قبل الفجر',
+    'ramadan.sched.snack': '🌙 وجبة ما بعد التراويح',
+    'ramadan.sched.snack.body': 'لبن يوناني · رفعة بروتين',
+
+    'who.tag': '— لمن هو',
+    'who.title': 'مبنيّ للعودة.',
+    'who.body': 'أنت لست مؤثّرًا في الـ22 من عمره وله طبّاخ شخصي. مرّت بك سنة قاسية، إصابة، رمضان طويل، طفل جديد، موعد تسليم. أنت جاهز من جديد — وتحتاج مدرّبًا يحترم الحياة المحيطة بالتمرين.',
+    'who.p1.title': 'العائد بعد إصابة',
+    'who.p1.body': 'سنتان خارج المضمار لأنّ شيئًا ما حدث. جاهز للعودة — دون أن ينتهي به الأمر على الكنبة من جديد.',
+    'who.p2.title': 'الرياضي الواعي لرمضان',
+    'who.p2.body': 'لا يريد أن يخسر 30 يومًا من تقدّمه كلّ عام. يرفض أن يختار بين لياقته ودينه.',
+    'who.p3.title': 'المسافر العامل',
+    'who.p3.body': 'غرف فنادق، مناطق زمنية، عشاءات مؤتمرات. يحتاج خطّة تتبدّل حسب المساحة المتاحة.',
+    'who.p4.title': 'الآكل المرن',
+    'who.p4.body': 'سمكي أسبوعًا، نباتي الذي يليه، عشاء عائلي يوم الجمعة. لن يلتزم بخطة جامدة. سيلتزم بخطة مرنة.',
+    'who.quote': 'توقّفت عن استخدام تطبيقي القديم في يوم رمضان الثالث، حين سألني — في الثانية ظهرًا — هل شربت كفايتك من الماء؟<br/>«حزم» فقط <em>فهم</em>.',
+    'who.quote.name': 'سامي · 37 · حيفا',
+    'who.quote.role': 'مستخدم تجريبي · عودة بعد إصابة',
+
+    'journey.tag': '— الرحلة',
+    'journey.title': 'إعداد بأربع خطوات. خطّة حقيقية في دقيقتين.',
+    'journey.s1.title': 'الملف الشخصي',
+    'journey.s1.body': 'العمر · الطول · الوزن · تاريخ الإصابات. حساب فوري للـBMI وTDEE.',
+    'journey.s2.title': 'الهدف',
+    'journey.s2.body': 'تنحيف · بناء · ثبات. بروتوكول الإصابة يُقترح تلقائيًا.',
+    'journey.s3.title': 'نمط الصيام',
+    'journey.s3.body': '16:8 · 5:2 · مخصّص · جاف. الواجهة تتحوّل لكهرماني عند تفعيل الجاف.',
+    'journey.s4.title': 'الأدوات',
+    'journey.s4.body': 'وزن جسم · صالة منزلية · صالة كاملة. اختر كلّ ما ينطبق.',
+    'journey.cta': 'شاهد النموذج الكامل',
+
+    'faq.tag': '— الأسئلة',
+    'faq.title': 'أسئلة بصراحة.',
+    'faq.q1': 'هل الصيام الجاف آمن فعلًا؟',
+    'faq.a1': 'الصيام الجاف له تاريخ ديني وتقليدي طويل، لكنّه مُجهد فسيولوجيًا. دور «حزم» ليس أن يوصي به — بل أن يدعم من اختار ممارسته. نوقف تذكيرات الماء أثناء الصيام، وننسّق ترطيبًا مكثفًا لكن متباعدًا بعد الغروب حتى لا يُصدم الجسم. لو كانت لديك حالة طبّية، يُنصح باستشارة الطبيب أوّلًا.',
+    'faq.q2': 'كيف يعرف وضع رمضان متى يبدأ؟',
+    'faq.a2': 'يقرأ «حزم» أوقات الشروق والغروب حسب موقعك عبر API. قبل يومين من بدء رمضان عندك، ستصلك دعوة لتفعيل الوضع. يمكنك ضبط طريقة حساب المذهب من الإعدادات إن كنت تفضّل مرجعًا محدّدًا.',
+    'faq.q3': 'هل يعمل لو أردت تطبيق تمارين فقط — بدون صيام؟',
+    'faq.a3': 'نعم. أنماط الصيام اختيارية. محرّك التمارين المتكيّف، تبديل الأدوات، بروتوكول الإصابة، ومراجعة الـ21 يومًا — كلّها تعمل بشكل مستقل.',
+    'faq.q4': 'ماذا يحدث لو تخطّيت تمرينًا أو يوم صيام؟',
+    'faq.a4': 'لا شيء عقابي. «حزم» يُعيد الجدولة بهدوء، ويستخدم البيانات لإعادة الضبط في المراجعة التالية. تعمّدنا ألّا نُصدّر «شعور الفشل من الستريك» — هذا هو السبب الأول الذي تفقد فيه التطبيقات مستخدميها في الأسبوع الثالث.',
+    'faq.q5': 'هل يتكامل مع Apple Health و Google Fit و Garmin؟',
+    'faq.a5': 'Apple Health و Google Fit في الإطلاق. Garmin Connect مخطّط له في الإصدار 1.1 — صوّت له على لوحة الاقتراحات بعد انضمامك للقائمة.',
+    'faq.q6': 'كم سيكلّف؟',
+    'faq.a6': 'نحن في طور تحديد ذلك. متوقّع وجود طبقة مجّانية تغطّي التتبّع الأساسي ونمط صيام واحد، وطبقة مدفوعة (بسعر فنجان قهوة أسبوعيًا تقريبًا) تفتح وضع رمضان، مكتبة تبديل الوجبات الكاملة، بروتوكولات الإصابة، وحلقة التكيّف. المستخدمون التجريبيون يحصلون على سعر العضو المؤسس مدى الحياة.',
+
+    'waitlist.title': 'انضمّ للقائمة.<br/>و<span class="gradient-text">احزم أمرك</span>.',
+    'waitlist.body': 'النسخة التجريبية الخاصّة تُفتح هذا الصيف. الأعضاء المؤسّسون يُثبّتون السعر المبكر ويشكّلون خارطة الطريق.',
+    'waitlist.submit': 'انضم الآن',
+    'waitlist.note': '٣٠ ثانية فقط. لا رسائل مزعجة. يمكنك الانسحاب متى شئت.',
+    'waitlist.t1': 'نسخة تجريبية خاصّة',
+    'waitlist.t2': 'iOS و Android',
+    'waitlist.t3': 'Apple Health + Google Fit',
+    'waitlist.t4': 'عربي · إنجليزي عند الإطلاق',
+
+    'footer.tagline': '<em>حزم</em> — العزم والإصرار. مرافق Cyber-Wellness للصيام والتدريب وكلّ ما بينهما.',
+    'footer.col1': 'المنتج',
+    'footer.col2': 'الشركة',
+    'footer.col3': 'تواصل',
+    'footer.about': 'من نحن',
+    'footer.blog': 'المدوّنة',
+    'footer.press': 'مجموعة صحافية',
+    'footer.careers': 'وظائف',
+    'footer.legal': '© 2026 حزم. ليست استشارة طبّية. استشر طبيبًا قبل البدء في أيّ برنامج صيام أو تدريب.',
+    'footer.privacy': 'الخصوصية',
+    'footer.terms': 'الشروط',
+    'footer.cookies': 'الكوكيز'
+  },
+
+  en: {
+    'ui.arrow': '→',
+
+    'nav.problem': 'The problem',
+    'nav.how': 'How it works',
+    'nav.ramadan': 'Ramadan mode',
+    'nav.who': "Who it's for",
+    'nav.faq': 'FAQ',
+    'nav.cta': 'Join waitlist →',
+
+    'hero.beta': '✦ Now in private beta',
+    'hero.title': 'Fast, train, and<br/><span class="gradient-text">resolve</span> — even when<br/>life shifts the rules.',
+    'hero.subtitle': 'Hzm is the first fitness companion that handles <strong class="em-primary">Ramadan</strong>, <strong class="em-primary">dry fasts</strong>, equipment swaps, and post-injury comebacks as first-class citizens — not edge cases. One adaptive plan for the body you actually live in.',
+    'hero.cta1': 'Join the waitlist',
+    'hero.cta2': 'See how it works',
+    'hero.stat1': 'fitness apps on the market — zero built for Ramadan',
+    'hero.stat2': 'fitness app users — none with a dry fasting mode',
+    'hero.stat3': 'Day adaptation loop that quietly recalibrates',
+
+    'marquee.label': 'ONE APP — EVERY EDGE CASE OTHERS IGNORE',
+    'marquee.tag1': '🌙 <strong>Ramadan</strong> mode',
+    'marquee.tag2': '💧 <strong>Dry fasting</strong> support',
+    'marquee.tag3': '⏱ <strong>16:8 / 5:2</strong> protocols',
+    'marquee.tag4': '🩺 <strong>Post-injury</strong> protocol',
+    'marquee.tag5': '🏨 <strong>Travel mode</strong> workouts',
+    'marquee.tag6': '🌱 <strong>Plant-based</strong> swaps',
+    'marquee.tag7': '📈 <strong>3-week</strong> recalibration',
+    'marquee.tag8': '🍽 <strong>Iso-caloric</strong> meal swaps',
+
+    'problem.tag': 'The problem',
+    'problem.title': 'Most fasting apps assume noon to 8pm.<br/><span class="gradient-text-warm">Life isn\'t that simple.</span>',
+    'problem.body': "When Ramadan starts, the algorithm breaks. When you fast dry, the water reminders shame you. When you travel, the gym session is unusable. When you skip a workout, the streak penalty makes you quit.",
+    'problem.col1': 'Scenario',
+    'problem.col2': 'Most fitness apps',
+    'problem.col3': 'Hzm',
+    'problem.row1.title': 'Ramadan begins',
+    'problem.row1.them': 'Static 12pm–8pm window. Useless.',
+    'problem.row1.us': 'Restructures the day around maghrib & fajr automatically.',
+    'problem.row2.title': 'Dry fasting',
+    'problem.row2.them': 'Pings you to drink water. Mid-fast.',
+    'problem.row2.us': 'Pauses water reminders. Schedules intensive hydration after sundown.',
+    'problem.row3.title': 'Travelling, no gym',
+    'problem.row3.them': '"Today\'s plan: Barbell Bench Press." Cool.',
+    'problem.row3.us': 'One tap → bodyweight version. Same volume, same muscles.',
+    'problem.row4.title': 'Coming back from injury',
+    'problem.row4.them': '"Beginner" plan that injures you again.',
+    'problem.row4.us': 'Post-injury protocol. Bodyweight + walking. Ramps safely.',
+    'problem.row5.title': 'Bored of meals',
+    'problem.row5.them': 'Tough. Buy the next plan.',
+    'problem.row5.us': 'Inline iso-caloric swaps. Tap an alternate. Done.',
+    'problem.row6.title': 'Skip a workout',
+    'problem.row6.them': 'Streak broken. Guilt notification.',
+    'problem.row6.us': "Reschedules quietly. Suggests recovery if you're tired.",
+
+    'how.tag': 'How it works',
+    'how.title': 'Three engines.<br/>One adaptive plan.',
+    'how.body': "Hzm doesn't ship you a static PDF. It ships you a system that watches what you do, asks how you feel, and quietly tunes itself every three weeks.",
+    'how.engine1.tag': 'ENGINE 01',
+    'how.engine1.title': 'Hybrid Fasting Engine',
+    'how.engine1.body': 'Reads sunrise & sunset by location. Restructures your day for Ramadan, dry fasts, or any custom window — including water reminder logic that respects when you can drink.',
+    'how.engine1.b1': '16:8 · 5:2 · custom windows',
+    'how.engine1.b2': 'Ramadan auto-activation 48h before',
+    'how.engine1.b3': 'Dual-fast counters (food + water)',
+    'how.engine2.tag': 'ENGINE 02',
+    'how.engine2.title': 'Adaptive Workouts',
+    'how.engine2.body': "Every session has three versions baked in: full gym, light home, bodyweight only. One tap switches the day's plan — same muscle groups, matched volume.",
+    'how.engine2.b1': 'Equipment-aware in real time',
+    'how.engine2.b2': 'Post-injury ramp protocol',
+    'how.engine2.b3': '"Too tired" → recovery, not failure',
+    'how.engine3.tag': 'ENGINE 03',
+    'how.engine3.title': 'Adaptation Loop',
+    'how.engine3.body': "Every 21 days you check in. Two minutes. Hzm asks how you feel — not just what the scale says — and recalibrates calories, volume, and meal rotation.",
+    'how.engine3.b1': 'Subjective + objective metrics',
+    'how.engine3.b2': 'Iso-caloric meal alternates inline',
+    'how.engine3.b3': 'Pivots goal: lose → maintain → build',
+
+    'ramadan.tag': 'The differentiator',
+    'ramadan.title': 'A real <span class="gradient-text-warm">Ramadan mode.</span><br/>Not a checkbox.',
+    'ramadan.body': "1.9 billion people fast through Ramadan every year. Almost no fitness app handles it. Hzm reads your local maghrib and fajr times, restructures meals around iftar and suhoor, schedules training for pre-iftar or post-traweeh, and runs an intensive overnight hydration sprint.",
+    'ramadan.f1.title': 'Shifting eating windows',
+    'ramadan.f1.body': 'Synced to maghrib & fajr daily. Suhoor = slow carbs. Iftar = fast absorption. Post-traweeh = protein.',
+    'ramadan.f2.title': 'Smart hydration sprints',
+    'ramadan.f2.body': 'Reminders pause through the day. After maghrib, intensive cycle hits 2.5L by fajr — without shocking your stomach.',
+    'ramadan.f3.title': 'Adaptive Ramadan training',
+    'ramadan.f3.body': 'Choose pre-iftar (fat loss) or post-traweeh (strength). Volume reduced 20% to prevent overtraining and muscle loss.',
+    'ramadan.cta': 'Get Ramadan-ready',
+    'ramadan.sched.day': '🌙 RAMADAN · DAY 7',
+    'ramadan.sched.title': "Today's schedule",
+    'ramadan.sched.eta': '8h to iftar',
+    'ramadan.sched.suhoor': '🌌 Suhoor',
+    'ramadan.sched.tag1': 'slow carbs',
+    'ramadan.sched.suhoor.body': 'Oats · peanut butter · 3 eggs',
+    'ramadan.sched.quiet': '— Quiet. No food, no water, no nags. —',
+    'ramadan.sched.workout': '🏋️ Pre-iftar workout',
+    'ramadan.sched.tag2': '−20% vol',
+    'ramadan.sched.workout.body': 'Push day · ends at maghrib',
+    'ramadan.sched.iftar': '🌅 Iftar',
+    'ramadan.sched.iftar.body': 'Dates · water · main meal',
+    'ramadan.sched.water': '💧 Hydration sprint',
+    'ramadan.sched.water.body': 'Glass every 45 min · target 2.5L by fajr',
+    'ramadan.sched.snack': '🌙 Post-traweeh snack',
+    'ramadan.sched.snack.body': 'Greek yogurt · protein top-up',
+
+    'who.tag': "Who it's for",
+    'who.title': 'Built for the comeback.',
+    'who.body': "You're not a 22-year-old influencer with a personal chef. You had a rough year, an injury, a long Ramadan, a new baby, a deadline. You're ready again — and you need a coach that respects the life around the workout.",
+    'who.p1.title': 'The post-injury returner',
+    'who.p1.body': 'Two years off because something went wrong. Wants back in — without ending up back on the couch.',
+    'who.p2.title': 'The Ramadan-aware athlete',
+    'who.p2.body': "Doesn't want to lose 30 days of progress every year. Refuses to choose between fitness and faith.",
+    'who.p3.title': 'The traveling professional',
+    'who.p3.body': 'Hotel rooms, time zones, conference dinners. Needs a plan that morphs to whatever space they\'re in.',
+    'who.p4.title': 'The flexible eater',
+    'who.p4.body': "Pescatarian one week, plant-based the next, family dinner Friday. Won't follow a rigid meal plan. Will follow a flexible one.",
+    'who.quote': "I stopped using my old fitness app on day three of Ramadan when it asked me — at 2pm — if I'd hit my water goal. Hzm just <em>knew.</em>",
+    'who.quote.name': 'Sami · 37 · Haifa',
+    'who.quote.role': 'Beta user · post-injury comeback',
+
+    'journey.tag': 'The journey',
+    'journey.title': 'Onboarding in 4 steps. Real plan in 2 minutes.',
+    'journey.s1.title': 'Profile',
+    'journey.s1.body': 'Age · height · weight · injury history. Live BMI & TDEE.',
+    'journey.s2.title': 'Goal',
+    'journey.s2.body': 'Lose · build · maintain. Post-injury protocol auto-suggested.',
+    'journey.s3.title': 'Fasting mode',
+    'journey.s3.body': "16:8 · 5:2 · custom · dry. UI shifts amber when dry's on.",
+    'journey.s4.title': 'Equipment',
+    'journey.s4.body': 'Bodyweight · home gym · full gym. Pick all that apply.',
+    'journey.cta': 'See the full prototype',
+
+    'faq.tag': 'FAQ',
+    'faq.title': 'Questions, fairly asked.',
+    'faq.q1': 'Is dry fasting actually safe?',
+    'faq.a1': "Dry fasting has a long religious and traditional history but is physiologically demanding. Hzm's role isn't to recommend it — it's to support people who choose to do it. We pause water reminders during the fast and orchestrate intensive but spaced-out hydration after sundown so you don't shock your system. If you have a medical condition, please consult a physician first.",
+    'faq.q2': 'How does Ramadan mode know when to start?',
+    'faq.a2': "Hzm reads sunrise and sunset for your location via a sunrise/sunset API. Two days before Ramadan begins where you are, you'll get an opt-in prompt. You can adjust your madhab's calculation method in settings if you prefer a specific source.",
+    'faq.q3': 'Will it work if I just want a workout app — no fasting?',
+    'faq.a3': 'Yes. Fasting modes are optional. The adaptive workout engine, equipment-swap, post-injury protocol, and 21-day check-in all work standalone.',
+    'faq.q4': 'What happens if I skip a workout or a fast?',
+    'faq.a4': "Nothing punitive. Hzm reschedules quietly and uses the data point to inform your next 21-day recalibration. We deliberately don't ship streak-based shame — it's the #1 reason fitness apps lose users in week three.",
+    'faq.q5': 'Does it integrate with Apple Health / Google Fit / Garmin?',
+    'faq.a5': 'Apple Health and Google Fit at launch. Garmin Connect is on the roadmap for v1.1 — vote it up on the public board after you join the waitlist.',
+    'faq.q6': 'How much will it cost?',
+    'faq.a6': "We're finalizing this. Expect a free tier covering core tracking and one fasting protocol, and a paid tier (around the price of a coffee per week) unlocking Ramadan mode, full meal-swap library, post-injury protocols, and the adaptation loop. Beta users will get founding-member pricing locked in.",
+
+    'waitlist.title': 'Get on the list.<br/><span class="gradient-text">Resolve the rest.</span>',
+    'waitlist.body': 'Private beta opens this summer. Founding members lock in early pricing and shape the roadmap.',
+    'waitlist.submit': 'Join now',
+    'waitlist.note': '30 seconds only. No spam. You can leave any time.',
+    'waitlist.t1': 'Private beta',
+    'waitlist.t2': 'iOS + Android',
+    'waitlist.t3': 'Apple Health + Google Fit',
+    'waitlist.t4': 'EN · AR · launch',
+
+    'footer.tagline': '<em>حزم</em> — resolve. A cyber-wellness companion for fasting, training, and the life that happens in between.',
+    'footer.col1': 'Product',
+    'footer.col2': 'Company',
+    'footer.col3': 'Connect',
+    'footer.about': 'About',
+    'footer.blog': 'Blog',
+    'footer.press': 'Press kit',
+    'footer.careers': 'Careers',
+    'footer.legal': '© 2026 Hzm. Not medical advice. Consult a physician before starting any fasting or training program.',
+    'footer.privacy': 'Privacy',
+    'footer.terms': 'Terms',
+    'footer.cookies': 'Cookie policy'
   }
+};
 
-  langToggle.addEventListener('click', () => {
-    const currentLang = body.getAttribute('data-lang');
+// ============== FORM URLs ==============
+const formUrls = {
+  ar: 'https://docs.google.com/forms/d/1csaHoEkpinZMbE2EFnvYYimURQ6xZnOaytrBeje3hig/viewform',
+  en: 'https://docs.google.com/forms/d/1d9T1I8gkHY6h_T1Xc7ZYClwBqWXSt-7umKqgWCu91ww/viewform'
+};
+
+// ============== STATE ==============
+let currentLang = 'ar';
+let currentTheme = 'dark';
+
+// ============== I18N RENDERING ==============
+function setLang(lang) {
+  currentLang = lang;
+  const dict = i18n[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+
+  document.querySelectorAll('[data-lang-label]').forEach(el => {
+    el.classList.toggle('active-lang', el.dataset.langLabel === lang);
+  });
+
+  rebuildTagStrip();
+  updateFormLinks();
+}
+
+function updateFormLinks() {
+  const url = formUrls[currentLang] || formUrls['ar'];
+  document.querySelectorAll('[data-form-link]').forEach(el => {
+    el.href = url;
+  });
+}
+
+function rebuildTagStrip() {
+  const strip = document.getElementById('tagStrip');
+  if (!strip) return;
+  const dict = i18n[currentLang];
+  const tags = ['marquee.tag1','marquee.tag2','marquee.tag3','marquee.tag4','marquee.tag5','marquee.tag6','marquee.tag7','marquee.tag8'];
+  strip.innerHTML = [...tags, ...tags].map(k => `<span class="tag-chip">${dict[k]}</span>`).join('');
+}
+
+// ============== THEME ==============
+function setTheme(theme) {
+  currentTheme = theme;
+  document.documentElement.dataset.theme = theme;
+}
+
+function detectInitialTheme() {
+  // Respect user's system preference if set
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    return 'light';
+  }
+  return 'dark';
+}
+
+// ============== INIT ==============
+document.addEventListener('DOMContentLoaded', () => {
+  // Initial theme from system preference
+  setTheme(detectInitialTheme());
+
+  // Initial language
+  setLang('ar');
+
+  // Theme toggle
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+  });
+
+  // Language toggle
+  document.getElementById('langToggle').addEventListener('click', () => {
     setLang(currentLang === 'ar' ? 'en' : 'ar');
   });
 
-  // === MODAL (legacy, kept for backwards compatibility) ===
-  const modal = document.getElementById('modal');
-  const closeBtn = document.getElementById('closeModal');
-  const formLink = document.getElementById('formLink');
-
-  if (formLink) formLink.href = 'https://forms.gle/a6w19L9gK3yZdKqK6';
-
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) modal.classList.remove('active');
+  // Listen to system theme changes
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      setTheme(e.matches ? 'light' : 'dark');
     });
   }
 
-  // === SCROLL REVEAL ===
+  // Smooth scroll
+  document.querySelectorAll('[data-scroll]').forEach(link => {
+    link.style.cursor = 'pointer';
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById(link.dataset.scroll);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Scroll-triggered reveal
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // === ANALYTICS PLACEHOLDER ===
-  // To add analytics, drop your Plausible/Fathom/GA snippet here
-  // Example for Plausible:
-  // <script defer data-domain="hazm.app" src="https://plausible.io/js/script.js"><\/script>
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+});
 </script>
 
 </body>
